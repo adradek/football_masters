@@ -38,5 +38,7 @@ module App
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.x.app.version = File.read(Rails.root.join(".application-version")).strip.freeze
   end
 end

@@ -57,7 +57,7 @@ nations = [
   { name: "Англия", group: "L", fifa_place: 4, fifa_rank: 1825, flag_emoji: "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
   { name: "Хорватия", group: "L", fifa_place: 11, fifa_rank: 1717, flag_emoji: "🇭🇷" },
   { name: "Панама", group: "L", fifa_place: 33, fifa_rank: 1540, flag_emoji: "🇵🇦" },
-  { name: "Гана", group: "L", fifa_place: 74, fifa_rank: 1346, flag_emoji: "🇬🇭" },
+  { name: "Гана", group: "L", fifa_place: 74, fifa_rank: 1346, flag_emoji: "🇬🇭" }
 ]
 
 group = nil
@@ -66,7 +66,7 @@ nations.each do |nation_data|
   letter = nation_data[:group]
 
   unless group && group.name == "Группа #{letter}"
-    group = Group.find_or_create_by(name: "Группа #{letter}", order: "A".ord - letter.ord)
+    group = Group.find_or_create_by(name: "Группа #{letter}", order: letter.ord - "A".ord)
   end
 
   params = nation_data.slice(:fifa_place, :fifa_rank, :flag_emoji)

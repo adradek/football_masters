@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom fixed-top">
+  <div class="container">
+    <%= link_to "Football Masters", root_path, class: "navbar-brand fw-bold" %>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNavbar"
+      aria-controls="mainNavbar"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to "Главная", root_path, class: "nav-link active", aria: { current: "page" } %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to "Ссылка", "#", class: "nav-link" %>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Меню
+          </a>
+
+          <ul class="dropdown-menu">
+            <li><%= link_to "Действие", "#", class: "dropdown-item" %></li>
+            <li><%= link_to "Еще действие", "#", class: "dropdown-item" %></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><%= link_to "Отдельная ссылка", "#", class: "dropdown-item" %></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to "v #{Rails.configuration.x.app.version}",
+              "#", class: "nav-link disabled", aria: { disabled: "true" } %>
+        </li>
+      </ul>
+
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
+        <button class="btn btn-outline-success" type="submit">Найти</button>
+      </form>
+    </div>
+  </div>
+</nav>

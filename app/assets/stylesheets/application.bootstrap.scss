@@ -1,2 +1,304 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+:root {
+  --page-bg: #f5f7fb;
+  --ink: #17202a;
+  --muted: #677386;
+  --pitch: #0c7c59;
+  --pitch-dark: #064d3e;
+  --lime: #c8f169;
+  --sun: #ffbf45;
+  --coral: #f25f4c;
+  --line: #dfe6ee;
+  --panel: #ffffff;
+}
+
+body {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(200, 241, 105, 0.24), transparent 28rem),
+    linear-gradient(180deg, #ffffff 0%, var(--page-bg) 38%, #eef3f7 100%);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.welcome-page {
+  overflow: hidden;
+}
+
+.world-cup-hero {
+  background:
+    linear-gradient(135deg, rgba(6, 77, 62, 0.94), rgba(12, 124, 89, 0.88)),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.08) 0,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px,
+      transparent 5.5rem
+    );
+  color: #ffffff;
+  min-height: min(72vh, 46rem);
+  padding: clamp(3rem, 8vw, 6rem) 0 clamp(2rem, 5vw, 4rem);
+  position: relative;
+}
+
+.world-cup-hero::before,
+.world-cup-hero::after {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.world-cup-hero::before {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  bottom: -8rem;
+  right: clamp(1rem, 9vw, 8rem);
+  width: min(34vw, 20rem);
+}
+
+.world-cup-hero::after {
+  border-left: 0;
+  border-radius: 0 999px 999px 0;
+  height: 18rem;
+  left: 0;
+  top: 18%;
+  width: min(28vw, 15rem);
+}
+
+.hero-layout {
+  align-items: end;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+  min-height: 22rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-copy {
+  max-width: 47rem;
+}
+
+.hero-kicker,
+.section-kicker,
+.group-card-kicker {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  margin: 0 0 0.65rem;
+  text-transform: uppercase;
+}
+
+.hero-kicker {
+  color: var(--lime);
+}
+
+.hero-copy h1 {
+  font-size: clamp(3rem, 8vw, 6.8rem);
+  font-weight: 900;
+  line-height: 0.95;
+  margin: 0;
+  max-width: 10ch;
+}
+
+.hero-lead {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  line-height: 1.6;
+  margin: 1.5rem 0 0;
+  max-width: 38rem;
+}
+
+.hero-scoreboard {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 8px;
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
+}
+
+.scoreboard-item {
+  background: rgba(255, 255, 255, 0.1);
+  min-height: 8rem;
+  padding: 1.15rem;
+}
+
+.scoreboard-item-wide {
+  grid-column: 1 / -1;
+}
+
+.scoreboard-value,
+.scoreboard-label {
+  display: block;
+}
+
+.scoreboard-value {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.scoreboard-label {
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 700;
+  margin-top: 0.65rem;
+}
+
+.groups-section {
+  padding: clamp(2.5rem, 7vw, 5rem) 0;
+}
+
+.section-heading {
+  align-items: end;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.section-kicker {
+  color: var(--coral);
+}
+
+.section-heading h2 {
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 900;
+  margin: 0;
+}
+
+.groups-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+
+.group-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 1rem 2rem rgba(23, 32, 42, 0.07);
+  overflow: hidden;
+}
+
+.group-card-header {
+  align-items: center;
+  background:
+    linear-gradient(135deg, rgba(12, 124, 89, 0.1), rgba(255, 191, 69, 0.12)),
+    #ffffff;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  min-height: 6.25rem;
+  padding: 1rem;
+}
+
+.group-card-kicker {
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+
+.group-card h3 {
+  font-size: 1.35rem;
+  font-weight: 900;
+  margin: 0;
+}
+
+.group-card-count {
+  align-items: center;
+  background: var(--pitch);
+  border-radius: 50%;
+  color: #ffffff;
+  display: inline-flex;
+  flex: 0 0 2.35rem;
+  font-weight: 900;
+  height: 2.35rem;
+  justify-content: center;
+  width: 2.35rem;
+}
+
+.nation-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.35rem;
+}
+
+.nation-row {
+  align-items: center;
+  border-radius: 6px;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 2.4rem minmax(0, 1fr) auto;
+  min-height: 4.1rem;
+  padding: 0.65rem 0.75rem;
+}
+
+.nation-row + .nation-row {
+  border-top: 1px solid #edf1f5;
+}
+
+.nation-row:hover {
+  background: #f7faf8;
+}
+
+.nation-flag {
+  align-items: center;
+  background: #f0f4f8;
+  border: 1px solid #e2e9f0;
+  border-radius: 6px;
+  display: inline-flex;
+  font-size: 1.45rem;
+  height: 2.4rem;
+  justify-content: center;
+  width: 2.4rem;
+}
+
+.nation-name {
+  font-weight: 800;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.nation-rating {
+  align-items: end;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  line-height: 1.05;
+  min-width: 3.25rem;
+}
+
+.rating-place {
+  color: var(--pitch-dark);
+  font-weight: 900;
+}
+
+.rating-points {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+@media (max-width: 767.98px) {
+  .world-cup-hero {
+    min-height: auto;
+  }
+
+  .hero-layout {
+    align-items: start;
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .hero-copy h1 {
+    max-width: 8ch;
+  }
+
+  .section-heading {
+    align-items: start;
+    display: block;
+  }
+}
