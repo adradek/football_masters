@@ -1,3 +1,5 @@
+Версия: 0.2.0 (замена postgres на sqlite)
+
 # README
 
 This README would normally document whatever steps are necessary to get the
