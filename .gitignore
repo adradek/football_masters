@@ -9,6 +9,8 @@
 
 # Ignore all environment files.
 /.env*
+!/.envdir/
+!/.envdir/development/.keep
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -23,6 +25,7 @@
 
 # Ignore storage (uploaded files in development and any SQLite databases).
 /storage/*
+/storage/*.sqlite3
 !/storage/.keep
 /tmp/storage/*
 !/tmp/storage/
