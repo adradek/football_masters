@@ -43,16 +43,54 @@
           </ul>
         </li>
 
+        <% if admin_access? %>
+          <li class="nav-item">
+            <%= link_to "Админка", new_admin_user_path, class: "nav-link" %>
+          </li>
+        <% end %>
+
         <li class="nav-item">
           <%= link_to "v #{Rails.configuration.x.app.version}",
               "#", class: "nav-link disabled", aria: { disabled: "true" } %>
         </li>
       </ul>
 
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
-        <button class="btn btn-outline-success" type="submit">Найти</button>
-      </form>
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle d-flex align-items-center gap-2"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span
+                class="d-inline-block rounded-circle border"
+                style="width: 1rem; height: 1rem; background-color: <%= current_user.color %>;"
+              ></span>
+              <%= current_user.name %>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <span class="dropdown-item-text text-muted small">
+                  Роль: <%= current_user.role %>
+                </span>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <%= button_to "Выйти", logout_path, method: :delete,
+                    class: "dropdown-item" %>
+              </li>
+            </ul>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <span class="navbar-text">Гость</span>
+          </li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </nav>
