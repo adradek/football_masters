@@ -1,5 +1,7 @@
 x-app: &app
-  build: .
+  build:
+    context: .
+    dockerfile: Dockerfile.dev
   volumes:
     - .:/usr/src/app
     - gem_cache:/usr/local/bundle
