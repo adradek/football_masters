@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_14_205738) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_16_125339) do
   create_table "groups", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name", null: false
@@ -29,6 +29,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_14_205738) do
     t.integer "fifa_rank", null: false
     t.string "flag_emoji", null: false
     t.string "name", null: false
+    t.integer "price", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 
