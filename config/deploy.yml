@@ -7,7 +7,7 @@ image: shmoker/football_masters
 # Серверы, на которые деплоим. У нас один VPS, роль web.
 servers:
   web:
-    - 134.209.72.219
+    - 155.212.164.20
 
 # Reverse-proxy с автоматическим SSL через Let's Encrypt.
 # host должен указывать (DNS A-запись) на IP сервера выше, иначе сертификат не выпустится.
