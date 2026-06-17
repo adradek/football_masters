@@ -1,24 +1,4 @@
 <div class="container">
-  <h1>World Cup 2026</h1>
-
-  <% @groups.each do |group| %>
-    <h2><%= group.name %></h2>
-
-    <ul>
-      <% group.nations.each do |nation| %>
-        <li>
-          <div class="group-nation">
-            <span class="group-nation-flag">
-              <%= nation.flag_emoji %>
-            </span>
-            <%= nation.name %>
-            <span class="ms-1 text-primary fst-italic">
-              (<%= nation.price %>)
-            </span>
-          </div>
-        </li>
-      <% end %>
-
-    </ul>
-  <% end %>
+  <%= image_tag "messi.png", class: "welcome-hero-image",
+      alt: "Messi", loading: "eager", fetchpriority: "high" %>
 </div>

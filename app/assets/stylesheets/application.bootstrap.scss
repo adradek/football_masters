@@ -1,6 +1,14 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
+.welcome-hero-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 57px);
+  object-fit: cover;
+}
+
 :root {
   --page-bg: #f5f7fb;
   --ink: #17202a;
