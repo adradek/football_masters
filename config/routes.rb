@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   delete "logout" => "sessions#destroy", as: :logout
 
   namespace :admin do
-    resources :users, only: %i[new create]
+    resources :users, only: %i[index new create] do
+      resources :squads, only: %i[index]
+    end
   end
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
