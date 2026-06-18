@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_18_150407) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_18_223823) do
   create_table "groups", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name", null: false
@@ -57,10 +57,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_18_150407) do
     t.string "color"
     t.datetime "created_at", null: false
     t.string "name", null: false
+    t.integer "proposal"
     t.integer "role", default: 0, null: false
     t.string "secret", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_users_on_name", unique: true
+    t.index ["proposal"], name: "index_users_on_proposal"
     t.index ["secret"], name: "index_users_on_secret", unique: true
   end
 

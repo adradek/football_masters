@@ -3,7 +3,9 @@
 <div class="container py-4" style="margin-top: 4rem;">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="h4 mb-0">Пользователи</h1>
-    <%= link_to "Добавить юзера", new_admin_user_path, class: "btn btn-outline-success" %>
+    <% if policy([:admin, User]).create? %>
+      <%= link_to "Добавить юзера", new_admin_user_path, class: "btn btn-outline-success" %>
+    <% end %>
   </div>
 
   <div class="card shadow-sm">
@@ -15,6 +17,9 @@
             <th scope="col">Роль</th>
             <th scope="col">Цвет</th>
             <th scope="col">Основной выбор</th>
+            <% if policy([:admin, User]).edit? %>
+              <th scope="col">Ссылка</th>
+            <% end %>
             <th scope="col">Кнопки</th>
           </tr>
         </thead>
@@ -48,8 +53,18 @@
                   <span class="text-muted">—</span>
                 <% end %>
               </td>
+              <% if policy([:admin, user]).edit? %>
+                <td>
+                  <%= link_to "link", login_url(user.secret) %>
+                </td>
+              <% end %>
               <td>
-                <%= link_to "к сквадам", admin_user_squads_path(user), class: "btn btn-sm btn-success" %>
+                <div class="d-flex gap-1">
+                  <%= link_to "squads", admin_user_squads_path(user), class: "btn btn-sm btn-outline-primary" %>
+                  <% if policy([:admin, user]).edit? %>
+                    <%= link_to "edit", edit_admin_user_path(user), class: "btn btn-sm btn-outline-primary" %>
+                  <% end %>
+                </div>
               </td>
             </tr>
           <% end %>

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :users, only: %i[index]
 
   namespace :admin do
-    resources :users, only: %i[index new create] do
+    resources :users, only: %i[index new create edit update] do
       resources :squads, only: %i[index new create]
       resources :squad_checks, only: %i[create]
     end
