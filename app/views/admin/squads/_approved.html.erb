@@ -1,0 +1,22 @@
+<div class="alert alert-success" role="alert">
+  Набор одобрен — можно создавать сквад.
+</div>
+
+<div class="d-flex flex-wrap gap-1 mb-2">
+  <% nations.each do |nation| %>
+    <span class="badge text-bg-light border">
+      <%= nation.flag_emoji %> <%= nation.name %> <span class="text-muted">(<%= nation.price %>)</span>
+    </span>
+  <% end %>
+</div>
+
+<p class="text-muted small mb-3">
+  Суммарная стоимость: <%= nations.sum(&:price) %> / <%= SquadInspector::MAX_TOTAL_PRICE %>
+</p>
+
+<%= form_with url: admin_user_squads_path(user), method: :post do %>
+  <%= hidden_field_tag "squad[description]", squad.description %>
+  <%= hidden_field_tag "squad[main]", squad.main ? "1" : "0" %>
+  <%= hidden_field_tag "squad[nations]", nations_message %>
+  <%= submit_tag "Создать", class: "btn btn-success" %>
+<% end %>

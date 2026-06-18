@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom fixed-top">
+<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
   <div class="container">
     <%= link_to "Football Masters", root_path, class: "navbar-brand fw-bold" %>
 
@@ -16,13 +16,37 @@
 
     <div class="collapse navbar-collapse" id="mainNavbar">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <% if admin_access? %>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Админка
+            </a>
+
+            <ul class="dropdown-menu">
+              <li><%= link_to "Юзеры", admin_users_path, class: "dropdown-item" %></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><%= link_to "Матчи", "#", class: "dropdown-item" %></li>
+            </ul>
+
+            <%#= link_to "Админка", new_admin_user_path, class: "nav-link" %>
+          </li>
+        <% end %>
+
         <li class="nav-item">
           <%= link_to "Главная", root_path, class: "nav-link active", aria: { current: "page" } %>
         </li>
 
-        <li class="nav-item">
-          <%= link_to "Ссылка", "#", class: "nav-link" %>
-        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Игроки", users_path, class: "nav-link" %>
+          </li>
+        <% end %>
 
         <li class="nav-item dropdown">
           <a
@@ -42,12 +66,6 @@
             <li><%= link_to "Отдельная ссылка", "#", class: "dropdown-item" %></li>
           </ul>
         </li>
-
-        <% if admin_access? %>
-          <li class="nav-item">
-            <%= link_to "Админка", new_admin_user_path, class: "nav-link" %>
-          </li>
-        <% end %>
 
         <li class="nav-item">
           <%= link_to "v #{Rails.configuration.x.app.version}",

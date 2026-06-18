@@ -1,0 +1,43 @@
+<% content_for :title, "Сквады — #{@user.name}" %>
+
+<div class="container py-4" style="margin-top: 4rem;">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 mb-0">Сквады пользователя <%= @user.name %></h1>
+    <div class="d-flex gap-2">
+      <%= link_to "Создать сквад", new_admin_user_squad_path(@user), class: "btn btn-success btn-sm" %>
+      <%= link_to "К пользователям", admin_users_path, class: "btn btn-outline-secondary btn-sm" %>
+    </div>
+  </div>
+
+  <% if @squads.any? %>
+    <div class="row g-3">
+      <% @squads.each do |squad| %>
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-header bg-body-tertiary d-flex justify-content-between align-items-center">
+              <span><%= squad.description.presence || "Сквад ##{squad.id}" %></span>
+              <% if squad.main? %>
+                <span class="badge text-bg-primary">main</span>
+              <% end %>
+            </div>
+            <div class="card-body">
+              <% if squad.nations.any? %>
+                <div class="d-flex flex-wrap gap-1">
+                  <% squad.nations.each do |nation| %>
+                    <span class="badge text-bg-light border">
+                      <%= nation.flag_emoji %> <%= nation.name %>
+                    </span>
+                  <% end %>
+                </div>
+              <% else %>
+                <span class="text-muted">Нации не выбраны</span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted">У пользователя нет сквадов.</p>
+  <% end %>
+</div>

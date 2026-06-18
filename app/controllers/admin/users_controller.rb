@@ -1,5 +1,10 @@
 module Admin
   class UsersController < BaseController
+    def index
+      @users = User.all.includes(squads: :nations)
+      authorize [:admin, @users]
+    end
+
     def new
       @user = User.new(secret: SecureRandom.hex(16))
       authorize [:admin, @user]
@@ -16,10 +21,26 @@ module Admin
       end
     end
 
+    def edit
+      @user = User.find(params[:id])
+      authorize [:admin, @user]
+    end
+
+    def update
+      @user = User.find(params[:id])
+      authorize [:admin, @user]
+
+      if @user.update(user_params)
+        redirect_to admin_users_path, notice: "Пользователь #{@user.name} обновлён."
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
+
     private
 
     def user_params
-      params.require(:user).permit(:name, :secret, :role, :color)
+      params.require(:user).permit(:name, :secret, :role, :color, :proposal)
     end
   end
 end

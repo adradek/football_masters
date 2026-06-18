@@ -1,0 +1,12 @@
+<%= turbo_stream.replace "squad_check_result" do %>
+  <div id="squad_check_result" class="mt-4">
+    <% if @nations %>
+      <%= render "admin/squads/approved",
+                 user: @user, squad: @squad, nations: @nations, nations_message: @nations_message %>
+    <% else %>
+      <div class="alert alert-danger mb-0" role="alert">
+        <%= @error_message %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
