@@ -36,7 +36,7 @@ class SquadInspector
   end
 
   def parse_nations
-    @names = message.split(/[,\s]+/).compact
+    @names = message.split(/[,\n]+/).compact.map(&:strip)
     return Success() if names.size == REQUIRED_SQUAD_SIZE
 
     Failure(error: :incorrect_list,
