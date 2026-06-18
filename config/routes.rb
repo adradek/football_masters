@@ -12,7 +12,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: %i[index new create] do
-      resources :squads, only: %i[index]
+      resources :squads, only: %i[index new create]
+      resources :squad_checks, only: %i[create]
     end
   end
 

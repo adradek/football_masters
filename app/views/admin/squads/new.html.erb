@@ -1,0 +1,41 @@
+<% content_for :title, "Новый сквад — #{@user.name}" %>
+
+<div class="container py-4" style="margin-top: 4rem;">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4 mb-0">Новый сквад для <%= @user.name %></h1>
+        <%= link_to "К сквадам", admin_user_squads_path(@user), class: "btn btn-outline-secondary btn-sm" %>
+      </div>
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <%= form_with model: [:admin, @user, @squad],
+                        url: admin_user_squad_checks_path(@user), method: :post do |f| %>
+            <div class="mb-3">
+              <%= f.label :description, "Описание", class: "form-label" %>
+              <%= f.text_field :description, class: "form-control" %>
+            </div>
+
+            <div class="form-check mb-3">
+              <%= f.check_box :main, class: "form-check-input" %>
+              <%= f.label :main, "Основной сквад", class: "form-check-label" %>
+            </div>
+
+            <div class="mb-3">
+              <%= label_tag "squad_nations", "Команды", class: "form-label" %>
+              <%= text_area_tag "squad[nations]", nil, id: "squad_nations", rows: 9, class: "form-control" %>
+              <div class="form-text">
+                Перечислите <%= SquadInspector::REQUIRED_SQUAD_SIZE %> команд через запятую или пробел.
+              </div>
+            </div>
+
+            <%= f.submit "Проверить", class: "btn btn-outline-warning" %>
+          <% end %>
+
+          <div id="squad_check_result" class="mt-4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

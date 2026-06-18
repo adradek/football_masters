@@ -49,11 +49,11 @@ class SquadInspector
 
     if (mistaken_nations = names.select { |name| nations.map(&:normalized_name).exclude?(name.downcase) }).present?
       return Failure(error: :incorrect_list,
-            error_message: "Список содержит некорректные команды: #{mistaken_nations.join(', ')}")
+        error_message: "Список содержит некорректные команды (#{mistaken_nations.size}): #{mistaken_nations.join(', ')}")
     end
 
     Failure(error: :incorrect_list,
-            error_message: "В базе нашлось #{nations.size} команд: #{nations.map(&:name).join(", ")}")
+      error_message: "В базе нашлось #{nations.size} команд: #{nations.map(&:name).join(", ")}")
   end
 
   def check_total_price
