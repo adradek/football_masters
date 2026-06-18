@@ -42,9 +42,11 @@
           <%= link_to "Главная", root_path, class: "nav-link active", aria: { current: "page" } %>
         </li>
 
-        <li class="nav-item">
-          <%= link_to "Ссылка", "#", class: "nav-link" %>
-        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Игроки", users_path, class: "nav-link" %>
+          </li>
+        <% end %>
 
         <li class="nav-item dropdown">
           <a

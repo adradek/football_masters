@@ -1,0 +1,89 @@
+<% content_for :title, "Игроки" %>
+
+<% content_for :head do %>
+  <style>
+    .players-table tbody tr.is-current-user {
+      background-color: var(--bs-primary-bg-subtle);
+      box-shadow: inset 4px 0 0 var(--bs-primary);
+    }
+    .players-table tbody tr.is-current-user td {
+      background-color: transparent;
+    }
+    .player-color-dot {
+      width: 1.1rem;
+      height: 1.1rem;
+      flex: 0 0 auto;
+    }
+    .nation-chip {
+      font-weight: 500;
+    }
+  </style>
+<% end %>
+
+<div class="container py-4" style="margin-top: 4rem;">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="h3 mb-1">Участники забега</h1>
+    </div>
+    <span class="badge text-bg-secondary rounded-pill fs-6"><%= @users.size %></span>
+  </div>
+
+  <div class="card shadow-sm border-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0 players-table">
+        <thead class="table-light">
+          <tr>
+            <th scope="col" class="text-muted small text-uppercase">#</th>
+            <th scope="col" class="text-muted small text-uppercase">Игрок</th>
+            <th scope="col" class="text-muted small text-uppercase">Команды</th>
+            <th scope="col" class="text-muted small text-uppercase">Стоимость</th>
+            <th scope="col" class="text-muted small text-uppercase text-end">Очки</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each.with_index(1) do |user, index| %>
+            <% main_squad = user.squads.find(&:main?) %>
+            <% nations = main_squad&.nations.to_a %>
+            <tr class="<%= "is-current-user" if user == current_user %>">
+              <td><%= index %></td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="d-inline-block rounded-circle border player-color-dot"
+                        style="background-color: <%= user.color.presence || "#dee2e6" %>;"></span>
+                  <div>
+                    <div class="fw-semibold d-flex align-items-center gap-2">
+                      <%= user.name %>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <% if nations.any? %>
+                  <div class="d-flex flex-wrap gap-1">
+                    <% nations.sort_by { -it.price }.each do |nation| %>
+                      <span class="badge text-bg-light border nation-chip">
+                        <%= nation.flag_emoji %> <%= nation.name %> (<%= nation.price %>)
+                      </span>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <span class="text-muted">Сквад не выбран</span>
+                <% end %>
+              </td>
+              <td>
+                <% if nations.any? %>
+                  <span><%= nations.sum(&:price) %></span>
+                <% else %>
+                  <span class="text-muted">—</span>
+                <% end %>
+              </td>
+              <td class="text-end">
+                <span class="fw-semibold">0</span>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
