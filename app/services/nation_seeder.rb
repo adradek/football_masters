@@ -1,14 +1,14 @@
 class NationSeeder
   NATIONS = [
     { name: "Мексика", price: 13, group: "A", fifa_place: 15, fifa_rank: 1681, flag_emoji: "🇲🇽" },
-    { name: "Южная Корея", price: 9, group: "A", fifa_place: 25, fifa_rank: 1588, flag_emoji: "🇰🇷" },
+    { name: "Южная Корея", price: 9, group: "A", fifa_place: 25, fifa_rank: 1588, flag_emoji: "🇰🇷", normalized_name: "корея" },
     { name: "Чехия", price: 5, group: "A", fifa_place: 41, fifa_rank: 1501, flag_emoji: "🇨🇿" },
     { name: "ЮАР", price: 1, group: "A", fifa_place: 60, fifa_rank: 1429, flag_emoji: "🇿🇦" },
 
     { name: "Швейцария", price: 11, group: "B", fifa_place: 19, fifa_rank: 1649, flag_emoji: "🇨🇭" },
     { name: "Канада", price: 7, group: "B", fifa_place: 30, fifa_rank: 1556, flag_emoji: "🇨🇦" },
     { name: "Катар", price: 1, group: "B", fifa_place: 55, fifa_rank: 1454, flag_emoji: "🇶🇦" },
-    { name: "Босния и Герцеговина", price: 6, group: "B", fifa_place: 65, fifa_rank: 1385, flag_emoji: "🇧🇦" },
+    { name: "Босния и Герцеговина", price: 6, group: "B", fifa_place: 65, fifa_rank: 1385, flag_emoji: "🇧🇦", normalized_name: "босния" },
 
     { name: "Бразилия", price: 17, group: "C", fifa_place: 6, fifa_rank: 1761, flag_emoji: "🇧🇷" },
     { name: "Марокко", price: 11, group: "C", fifa_place: 8, fifa_rank: 1755, flag_emoji: "🇲🇦" },
@@ -52,7 +52,7 @@ class NationSeeder
 
     { name: "Португалия", price: 18, group: "K", fifa_place: 5, fifa_rank: 1763, flag_emoji: "🇵🇹" },
     { name: "Колумбия", price: 10, group: "K", fifa_place: 13, fifa_rank: 1693, flag_emoji: "🇨🇴" },
-    { name: "ДР Конго", price: 2, group: "K", fifa_place: 46, fifa_rank: 1478, flag_emoji: "🇨🇩" },
+    { name: "ДР Конго", price: 2, group: "K", fifa_place: 46, fifa_rank: 1478, flag_emoji: "🇨🇩", normalized_name: "конго" },
     { name: "Узбекистан", price: 2, group: "K", fifa_place: 50, fifa_rank: 1465, flag_emoji: "🇺🇿" },
 
     { name: "Англия", price: 19, group: "L", fifa_place: 4, fifa_rank: 1825, flag_emoji: "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
@@ -61,7 +61,13 @@ class NationSeeder
     { name: "Гана", price: 3, group: "L", fifa_place: 74, fifa_rank: 1346, flag_emoji: "🇬🇭" }
   ].freeze
 
-  def call(with_groups: false)
+  attr_reader :with_groups
+
+  def initialize(with_groups: false)
+    @with_groups = with_groups
+  end
+
+  def call
     group_candidate = nil
 
     NATIONS.each do |nation_data|
@@ -77,6 +83,7 @@ class NationSeeder
 
   def find_or_create_nation(nation_data)
     params = nation_data.slice(:fifa_place, :fifa_rank, :flag_emoji, :price)
+    params[:normalized_name] = nation_data[:normalized_name] || nation_data[:name].downcase
 
     if (nation = Nation.find_by(name: nation_data[:name]))
       nation.update!(params)
