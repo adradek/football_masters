@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_19_190835) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_19_215854) do
   create_table "bonuses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
     t.integer "match_id", null: false
     t.integer "nation_id", null: false
+    t.integer "reason", default: 0, null: false
     t.datetime "updated_at", null: false
     t.integer "value", default: 0, null: false
     t.index ["match_id"], name: "index_bonuses_on_match_id"
