@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_19_140522) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_19_190835) do
+  create_table "bonuses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "description"
+    t.integer "match_id", null: false
+    t.integer "nation_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "value", default: 0, null: false
+    t.index ["match_id"], name: "index_bonuses_on_match_id"
+    t.index ["nation_id"], name: "index_bonuses_on_nation_id"
+  end
+
   create_table "groups", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name", null: false
@@ -82,6 +93,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_19_140522) do
     t.index ["secret"], name: "index_users_on_secret", unique: true
   end
 
+  add_foreign_key "bonuses", "matches"
+  add_foreign_key "bonuses", "nations"
   add_foreign_key "groups_nations", "groups"
   add_foreign_key "groups_nations", "nations"
   add_foreign_key "matches", "nations", column: "away_id"
