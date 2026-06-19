@@ -17,6 +17,10 @@ Rails.application.routes.draw do
       resources :squads, only: %i[index new create]
       resources :squad_checks, only: %i[create]
     end
+
+    resources :matches, only: %i[index new create] do
+      get :pending, on: :collection
+    end
   end
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
