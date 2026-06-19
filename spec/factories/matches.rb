@@ -1,12 +1,12 @@
 FactoryBot.define do
   factory :match do
-    stage { 1 }
+    stage { :round_of_16 }
+    state { :finished }
     played_at { "2026-06-19 11:11:22" }
-    home { nil }
-    away { nil }
-    score { "MyString" }
-    score_extra { "MyString" }
-    score_penalty { "MyString" }
-    state { 1 }
+    association :home, factory: :nation
+    association :away, factory: :nation
+    score { "1:0" }
+    score_extra { nil }
+    score_penalty { nil }
   end
 end

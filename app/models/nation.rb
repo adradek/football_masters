@@ -1,6 +1,7 @@
 class Nation < ApplicationRecord
   validates :name, presence: true
 
+  has_many :bonuses
   has_and_belongs_to_many :squads
 
   def matches
