@@ -21,13 +21,6 @@
 <% end %>
 
 <div class="container py-4" style="margin-top: 4rem;">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-      <h1 class="h3 mb-1">Участники забега</h1>
-    </div>
-    <span class="badge text-bg-secondary rounded-pill fs-6"><%= @users.size %></span>
-  </div>
-
   <div class="card shadow-sm border-0">
     <div class="table-responsive">
       <table class="table table-hover align-middle mb-0 players-table">
@@ -36,7 +29,6 @@
             <th scope="col" class="text-muted small text-uppercase">#</th>
             <th scope="col" class="text-muted small text-uppercase">Игрок</th>
             <th scope="col" class="text-muted small text-uppercase">Команды</th>
-            <th scope="col" class="text-muted small text-uppercase">Стоимость</th>
             <th scope="col" class="text-muted small text-uppercase text-end">Очки</th>
           </tr>
         </thead>
@@ -60,21 +52,22 @@
               <td>
                 <% if nations.any? %>
                   <div class="d-flex flex-wrap gap-1">
-                    <% nations.sort_by { -it.price }.each do |nation| %>
-                      <span class="badge text-bg-light border nation-chip">
-                        <%= nation.flag_emoji %> <%= nation.name %> (<%= nation.price %>)
-                      </span>
+                    <% if true %>
+                      <% nations.sort_by { -it.price }.each do |nation| %>
+                        <% if nil %>
+                          <span class="badge text-bg-light border nation-chip">
+                            <%= nation.flag_emoji %> <%= nation.name %> (<%= nation.price %>)
+                          </span>
+                        <% end %>
+                        <span class="ms-3 fs-4 lh-1" title="<%= nation.name_with_price %>">
+                          <%= nation.flag_emoji %>
+                        </span>
+                      <% end %>
                     <% end %>
+                    <%#= nations.sort_by { -it.price }.map(&:name).join(", ") %>
                   </div>
                 <% else %>
                   <span class="text-muted">Сквад не выбран</span>
-                <% end %>
-              </td>
-              <td>
-                <% if nations.any? %>
-                  <span><%= nations.sum(&:price) %></span>
-                <% else %>
-                  <span class="text-muted">—</span>
                 <% end %>
               </td>
               <td class="text-end">
