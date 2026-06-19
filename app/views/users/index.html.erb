@@ -21,6 +21,14 @@
 <% end %>
 
 <div class="container py-4" style="margin-top: 4rem;">
+  <div class="d-flex align-items-center gap-2 mb-3 text-muted">
+    <i class="bi bi-clock-history"></i>
+    <span>
+      Данные актуальны на
+      <span class="fw-semibold text-body"><%= @actual_at.strftime("%d.%m.%Y %H:%M") %></span>
+    </span>
+  </div>
+
   <div class="card shadow-sm border-0">
     <div class="table-responsive">
       <table class="table table-hover align-middle mb-0 players-table">
