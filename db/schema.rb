@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_18_223823) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_19_111122) do
   create_table "groups", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name", null: false
@@ -23,6 +23,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_18_223823) do
     t.bigint "nation_id", null: false
     t.index ["group_id", "nation_id"], name: "index_groups_nations_on_group_id_and_nation_id", unique: true
     t.index ["nation_id"], name: "index_groups_nations_on_nation_id"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.integer "away_id"
+    t.datetime "created_at", null: false
+    t.integer "home_id"
+    t.datetime "played_at"
+    t.string "score"
+    t.string "score_extra"
+    t.string "score_penalty"
+    t.integer "stage", default: 0, null: false
+    t.integer "state", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["away_id"], name: "index_matches_on_away_id"
+    t.index ["home_id"], name: "index_matches_on_home_id"
   end
 
   create_table "nations", force: :cascade do |t|
@@ -68,6 +83,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_18_223823) do
 
   add_foreign_key "groups_nations", "groups"
   add_foreign_key "groups_nations", "nations"
+  add_foreign_key "matches", "nations", column: "away_id"
+  add_foreign_key "matches", "nations", column: "home_id"
   add_foreign_key "nations_squads", "nations"
   add_foreign_key "nations_squads", "squads"
   add_foreign_key "squads", "users"
