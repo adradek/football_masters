@@ -1,6 +1,6 @@
 class NationsController < ApplicationController
   def index
-    @nations = Nation.order(points: :desc, price: :desc, id: :asc).includes(squads: :user)
+    @nations = Nation.order(points: :desc, price: :asc, id: :asc).includes(squads: :user)
 
     @users = User.includes(squads: :nations).to_a.sort_by { |u| [-u.points, u.id] }
 
