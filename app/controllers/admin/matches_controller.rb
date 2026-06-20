@@ -15,6 +15,22 @@ module Admin
       authorize [:admin, @match]
     end
 
+    def edit
+      @match = Match.find(params[:id])
+      authorize [:admin, @match]
+    end
+
+    def update
+      @match = Match.find(params[:id])
+      authorize [:admin, @match]
+
+      if @match.update(match_params)
+        redirect_to admin_matches_path, notice: "Матч обновлён"
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
+
     def create
       @match = Match.new(match_params)
       authorize [:admin, @match]

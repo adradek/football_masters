@@ -10,6 +10,9 @@
             <th scope="col" class="text-center">Счёт</th>
             <th scope="col">Гости</th>
             <th scope="col">Состояние</th>
+            <% if policy([:admin, Bonus]).new? %>
+              <th scope="col" class="text-end">Действия</th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
@@ -20,18 +23,30 @@
               </td>
               <td><span class="badge text-bg-secondary"><%= match.stage.humanize %></span></td>
               <td class="text-end fw-semibold">
-                <%= match.home.flag_emoji %> <%= match.home.name %>
+                <%= match.home&.name_with_flag || "—" %>
               </td>
               <td class="text-center text-nowrap">
                 <%= match.score.presence || "—" %>
               </td>
               <td class="fw-semibold">
-                <%= match.away.flag_emoji %> <%= match.away.name %>
+                <%= match.away&.name_with_flag || "—" %>
               </td>
               <td>
                 <% badge = match.completed? ? "text-bg-success" : "text-bg-warning" %>
                 <span class="badge <%= badge %>"><%= match.state.humanize %></span>
               </td>
+              <% if policy([:admin, Bonus]).new? %>
+                <td class="text-end text-nowrap">
+                  <% if policy([:admin, match]).edit? %>
+                    <%= link_to "Изменить", edit_admin_match_path(match),
+                                class: "btn btn-outline-secondary btn-sm" %>
+                  <% end %>
+                  <% unless match.completed? %>
+                    <%= link_to "Обработать", new_admin_match_bonus_path(match),
+                                class: "btn btn-outline-success btn-sm" %>
+                  <% end %>
+                </td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>

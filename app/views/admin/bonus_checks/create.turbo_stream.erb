@@ -1,0 +1,11 @@
+<%= turbo_stream.replace "bonus_check_result" do %>
+  <div id="bonus_check_result" class="mt-4">
+    <% if @bonuses %>
+      <%= render "admin/bonuses/approved", match: @match, bonuses: @bonuses %>
+    <% else %>
+      <div class="alert alert-danger mb-0" role="alert">
+        <%= @error_message %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
