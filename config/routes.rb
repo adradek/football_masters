@@ -19,8 +19,10 @@ Rails.application.routes.draw do
       resources :squad_checks, only: %i[create]
     end
 
-    resources :matches, only: %i[index new create] do
+    resources :matches, only: %i[index new create edit update] do
       get :pending, on: :collection
+      resources :bonuses, only: %i[new create]
+      resources :bonus_checks, only: %i[create]
     end
   end
 
