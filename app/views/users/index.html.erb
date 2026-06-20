@@ -21,6 +21,14 @@
 <% end %>
 
 <div class="container py-4" style="margin-top: 4rem;">
+  <div class="d-flex align-items-center gap-2 mb-3 text-muted">
+    <i class="bi bi-clock-history"></i>
+    <span>
+      Данные актуальны на
+      <span class="fw-semibold text-body"><%= @actual_at.strftime("%d.%m.%Y %H:%M") %></span>
+    </span>
+  </div>
+
   <div class="card shadow-sm border-0">
     <div class="table-responsive">
       <table class="table table-hover align-middle mb-0 players-table">
@@ -29,6 +37,7 @@
             <th scope="col" class="text-muted small text-uppercase">#</th>
             <th scope="col" class="text-muted small text-uppercase">Игрок</th>
             <th scope="col" class="text-muted small text-uppercase">Команды</th>
+            <th scope="col" class="text-muted small text-uppercase">Встречи</th>
             <th scope="col" class="text-muted small text-uppercase text-end">Очки</th>
           </tr>
         </thead>
@@ -59,7 +68,9 @@
                             <%= nation.flag_emoji %> <%= nation.name %> (<%= nation.price %>)
                           </span>
                         <% end %>
-                        <span class="ms-3 fs-4 lh-1" title="<%= nation.name_with_price %>">
+                        <span class="ms-3 fs-4 lh-1"
+                          title="<%= "#{ nation.name } (#{ nation.points }/#{ nation.price })" %>"
+                        >
                           <%= nation.flag_emoji %>
                         </span>
                       <% end %>
@@ -70,8 +81,11 @@
                   <span class="text-muted">Сквад не выбран</span>
                 <% end %>
               </td>
+              <td>
+                <%= Bonus.where(nation_id: nations.map(&:id)).count %>
+              </td>
               <td class="text-end">
-                <span class="fw-semibold">0</span>
+                <span class="fw-semibold"><%= user.points %></span>
               </td>
             </tr>
           <% end %>

@@ -1,0 +1,75 @@
+<%= form_with model: [:admin, @match] do |f| %>
+  <% if @match.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <h2 class="h6 alert-heading">
+        <%= pluralize(@match.errors.count, "ошибка", "ошибки", "ошибок") %> при сохранении:
+      </h2>
+      <ul class="mb-0">
+        <% @match.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% nations = Nation.order(:name) %>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-6">
+      <%= f.label :home_id, "Хозяева", class: "form-label" %>
+      <%= f.collection_select :home_id, nations, :id, :name_with_flag,
+            { prompt: "Выберите страну" },
+            class: "form-select",
+            data: { controller: "tom-select", tom_select_placeholder: "Поиск страны…" } %>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <%= f.label :away_id, "Гости", class: "form-label" %>
+      <%= f.collection_select :away_id, nations, :id, :name_with_flag,
+            { prompt: "Выберите страну" },
+            class: "form-select",
+            data: { controller: "tom-select", tom_select_placeholder: "Поиск страны…" } %>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <%= f.label :played_at, "Дата и время", class: "form-label" %>
+      <%= f.datetime_field :played_at, class: "form-control" %>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <%= f.label :stage, "Стадия", class: "form-label" %>
+      <%= f.select :stage, Match.stages.keys.map { |s| [s.humanize, s] }, {}, class: "form-select" %>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <%= f.label :state, "Состояние", class: "form-label" %>
+      <%= f.select :state, Match.states.keys.map { |s| [s.humanize, s] }, {}, class: "form-select" %>
+    </div>
+  </div>
+
+  <hr class="my-4">
+
+  <p class="text-muted small">Счёт можно заполнить позже, во время обработки матча.</p>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-4">
+      <%= f.label :score, "Счёт", class: "form-label" %>
+      <%= f.text_field :score, class: "form-control", placeholder: "2:1" %>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <%= f.label :score_extra, "Доп. время", class: "form-label" %>
+      <%= f.text_field :score_extra, class: "form-control" %>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <%= f.label :score_penalty, "Пенальти", class: "form-label" %>
+      <%= f.text_field :score_penalty, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2 mt-4">
+    <%= f.submit "Сохранить матч", class: "btn btn-primary" %>
+    <%= link_to "Отмена", admin_matches_path, class: "btn btn-outline-secondary" %>
+  </div>
+<% end %>

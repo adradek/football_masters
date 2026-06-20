@@ -1,0 +1,58 @@
+<% if matches.any? %>
+  <div class="card shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">Когда</th>
+            <th scope="col">Стадия</th>
+            <th scope="col" class="text-end">Хозяева</th>
+            <th scope="col" class="text-center">Счёт</th>
+            <th scope="col">Гости</th>
+            <th scope="col">Состояние</th>
+            <% if policy([:admin, Bonus]).new? %>
+              <th scope="col" class="text-end">Действия</th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% matches.each do |match| %>
+            <tr>
+              <td class="text-nowrap">
+                <%= match.played_at ? l(match.played_at, format: :short) : "—" %>
+              </td>
+              <td><span class="badge text-bg-secondary"><%= match.stage.humanize %></span></td>
+              <td class="text-end fw-semibold">
+                <%= match.home&.name_with_flag || "—" %>
+              </td>
+              <td class="text-center text-nowrap">
+                <%= match.score.presence || "—" %>
+              </td>
+              <td class="fw-semibold">
+                <%= match.away&.name_with_flag || "—" %>
+              </td>
+              <td>
+                <% badge = match.completed? ? "text-bg-success" : "text-bg-warning" %>
+                <span class="badge <%= badge %>"><%= match.state.humanize %></span>
+              </td>
+              <% if policy([:admin, Bonus]).new? %>
+                <td class="text-end text-nowrap">
+                  <% if policy([:admin, match]).edit? %>
+                    <%= link_to "Изменить", edit_admin_match_path(match),
+                                class: "btn btn-outline-secondary btn-sm" %>
+                  <% end %>
+                  <% unless match.completed? %>
+                    <%= link_to "Обработать", new_admin_match_bonus_path(match),
+                                class: "btn btn-outline-success btn-sm" %>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% else %>
+  <p class="text-muted"><%= empty_message %></p>
+<% end %>

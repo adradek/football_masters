@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_18_223823) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_20_013242) do
+  create_table "bonuses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "description"
+    t.integer "match_id", null: false
+    t.integer "nation_id", null: false
+    t.integer "reason", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.integer "value", default: 0, null: false
+    t.index ["match_id"], name: "index_bonuses_on_match_id"
+    t.index ["nation_id"], name: "index_bonuses_on_nation_id"
+  end
+
   create_table "groups", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name", null: false
@@ -25,6 +37,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_18_223823) do
     t.index ["nation_id"], name: "index_groups_nations_on_nation_id"
   end
 
+  create_table "matches", force: :cascade do |t|
+    t.integer "away_id"
+    t.datetime "created_at", null: false
+    t.integer "home_id"
+    t.datetime "played_at"
+    t.string "score"
+    t.string "score_extra"
+    t.string "score_penalty"
+    t.integer "stage", default: 0, null: false
+    t.integer "state", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["away_id"], name: "index_matches_on_away_id"
+    t.index ["home_id"], name: "index_matches_on_home_id"
+    t.index ["played_at"], name: "index_matches_on_played_at"
+  end
+
   create_table "nations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "fifa_place", null: false
@@ -32,6 +60,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_18_223823) do
     t.string "flag_emoji", null: false
     t.string "name", null: false
     t.string "normalized_name"
+    t.integer "points", default: 0, null: false
     t.integer "price", default: 0, null: false
     t.datetime "updated_at", null: false
   end
@@ -66,8 +95,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_18_223823) do
     t.index ["secret"], name: "index_users_on_secret", unique: true
   end
 
+  add_foreign_key "bonuses", "matches"
+  add_foreign_key "bonuses", "nations"
   add_foreign_key "groups_nations", "groups"
   add_foreign_key "groups_nations", "nations"
+  add_foreign_key "matches", "nations", column: "away_id"
+  add_foreign_key "matches", "nations", column: "home_id"
   add_foreign_key "nations_squads", "nations"
   add_foreign_key "nations_squads", "squads"
   add_foreign_key "squads", "users"

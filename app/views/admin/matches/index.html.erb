@@ -1,0 +1,15 @@
+<% content_for :title, "Матчи" %>
+
+<div class="container py-4" style="margin-top: 4rem;">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 mb-0">Матчи</h1>
+    <div class="d-flex gap-2">
+      <%= link_to "Ждут обработки", pending_admin_matches_path, class: "btn btn-outline-warning" %>
+      <% if policy([:admin, Match]).create? %>
+        <%= link_to "Добавить матч", new_admin_match_path, class: "btn btn-outline-success" %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render "matches_table", matches: @matches, empty_message: "Матчей пока нет." %>
+</div>

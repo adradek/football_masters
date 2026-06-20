@@ -11,11 +11,18 @@ Rails.application.routes.draw do
   delete "logout" => "sessions#destroy", as: :logout
 
   resources :users, only: %i[index]
+  resources :matches, only: %i[index]
 
   namespace :admin do
     resources :users, only: %i[index new create edit update] do
       resources :squads, only: %i[index new create]
       resources :squad_checks, only: %i[create]
+    end
+
+    resources :matches, only: %i[index new create edit update] do
+      get :pending, on: :collection
+      resources :bonuses, only: %i[new create]
+      resources :bonus_checks, only: %i[create]
     end
   end
 
