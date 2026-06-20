@@ -1,0 +1,99 @@
+<% content_for :title, "Сборные" %>
+
+<% content_for :head do %>
+  <style>
+    .nations-table tbody tr.hl-mine > td { background-color: rgba(13, 110, 253, 0.15); }
+    .nations-table tbody tr.hl-rival > td { background-color: rgba(220, 53, 69, 0.13); }
+    .nations-table tbody tr.hl-both > td { background-color: rgba(111, 66, 193, 0.18); }
+
+    .nation-flag { font-size: 1.5rem; line-height: 1; }
+
+    .owner-checkbox { cursor: pointer; }
+    .owner-checkbox.cb-mine input { accent-color: #0d6efd; }
+    .owner-checkbox.cb-rival input { accent-color: #dc3545; }
+
+    .owner-color-dot {
+      width: 0.85rem;
+      height: 0.85rem;
+      flex: 0 0 auto;
+    }
+  </style>
+<% end %>
+
+<div class="container py-4" style="margin-top: 4rem;"
+     data-controller="highlight"
+     data-highlight-current-user-id-value="<%= current_user&.id %>">
+
+  <div class="d-flex align-items-center gap-2 mb-3 text-muted">
+    <i class="bi bi-clock-history"></i>
+    <span>
+      Данные актуальны на
+      <span class="fw-semibold text-body"><%= @actual_at.strftime("%d.%m.%Y %H:%M") %></span>
+    </span>
+  </div>
+
+  <div class="card shadow-sm border-0 mb-3">
+    <div class="card-body">
+      <div class="text-muted small text-uppercase mb-2">Подсветить сборные игрока</div>
+      <div class="d-flex flex-wrap gap-3">
+        <% @users.each do |user| %>
+          <% is_me = user == current_user %>
+          <label class="owner-checkbox d-inline-flex align-items-center gap-2 mb-0 <%= is_me ? "cb-mine" : "cb-rival" %>">
+            <input type="checkbox"
+                   class="form-check-input mt-0"
+                   data-highlight-target="checkbox"
+                   data-user-id="<%= user.id %>"
+                   data-action="highlight#refresh"
+                   <%= "checked" if is_me %>>
+            <span class="d-inline-block rounded-circle border owner-color-dot"
+                  style="background-color: <%= user.color.presence || "#dee2e6" %>;"></span>
+            <span class="<%= "fw-semibold" if is_me %>"><%= user.name %><%= " (ты)" if is_me %></span>
+          </label>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm border-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0 nations-table">
+        <thead class="table-light">
+          <tr>
+            <th scope="col" class="text-muted small text-uppercase">#</th>
+            <th scope="col" class="text-muted small text-uppercase">Сборная</th>
+            <th scope="col" class="text-muted small text-uppercase">Участники</th>
+            <th scope="col" class="text-muted small text-uppercase text-end">Стоимость</th>
+            <th scope="col" class="text-muted small text-uppercase text-end">Очки</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @nations.each.with_index(1) do |nation, index| %>
+            <tr data-highlight-target="row"
+                data-owner-ids="<%= @owners_by_nation[nation.id].join(",") %>">
+              <td class="text-muted"><%= index %></td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="nation-flag"><%= nation.flag_emoji %></span>
+                  <span class="fw-semibold"><%= nation.name %></span>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex flex-wrap gap-1">
+                  <% nation.squads.select(&:main?).each do |squad| %>
+                    <span class="badge text-bg-light border">
+                      <span class="d-inline-block rounded-circle border owner-color-dot"
+                          style="background-color: <%= squad.user.color.presence || "#dee2e6" %>;"></span>
+                      <%= squad.user.name %>
+                    </span>
+                  <% end %>
+                </div>
+              </td>
+              <td class="text-end"><%= nation.price %></td>
+              <td class="text-end"><span class="fw-semibold"><%= nation.points %></span></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

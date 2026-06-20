@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import TomSelectController from "./tom_select_controller"
 application.register("tom-select", TomSelectController)
+
+import HighlightController from "./highlight_controller"
+application.register("highlight", HighlightController)
