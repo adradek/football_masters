@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   # before_action :require_login
 
   def index
-    @users = User.includes(squads: :nations).to_a.sort_by { |u| [-u.points, u.proposal] }
+    @results = ResultsPresenter.new(users: User.includes(squads: :nations), current_user:)
     @actual_at = Match.data_actual_at
   end
 end

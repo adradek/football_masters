@@ -3,10 +3,17 @@
 <% content_for :head do %>
   <style>
     .players-table tbody tr.is-current-user {
-      background-color: var(--bs-primary-bg-subtle);
-      box-shadow: inset 4px 0 0 var(--bs-primary);
+      background-color: var(--bs-success-bg-subtle);
+      box-shadow: inset 4px 0 0 var(--bs-success);
     }
     .players-table tbody tr.is-current-user td {
+      background-color: transparent;
+    }
+    .players-table tbody tr.secondary-squad {
+      background-color: #cccccc;
+      box-shadow: inset 4px 0 0 #cccccc;
+    }
+    .players-table tbody tr.secondary-squad td {
       background-color: transparent;
     }
     .player-color-dot {
@@ -42,27 +49,25 @@
           </tr>
         </thead>
         <tbody>
-          <% @users.each.with_index(1) do |user, index| %>
-            <% main_squad = user.squads.find(&:main?) %>
-            <% nations = main_squad&.nations.to_a %>
-            <tr class="<%= "is-current-user" if user == current_user %>">
-              <td><%= index %></td>
+          <% @results.each do |record| %>
+            <tr class="<%= squad_html_class(record) %>">
+              <td><%= record.place %></td>
               <td>
                 <div class="d-flex align-items-center gap-2">
                   <span class="d-inline-block rounded-circle border player-color-dot"
-                        style="background-color: <%= user.color.presence || "#dee2e6" %>;"></span>
+                        style="background-color: <%= record.color.presence || "#dee2e6" %>;"></span>
                   <div>
                     <div class="fw-semibold d-flex align-items-center gap-2">
-                      <%= user.name %>
+                      <%= record.name %>
                     </div>
                   </div>
                 </div>
               </td>
               <td>
-                <% if nations.any? %>
+                <% if record.nations.any? %>
                   <div class="d-flex flex-wrap gap-1">
                     <% if true %>
-                      <% nations.sort_by { -it.price }.each do |nation| %>
+                      <% record.nations.sort_by { -it.price }.each do |nation| %>
                         <% if nil %>
                           <span class="badge text-bg-light border nation-chip">
                             <%= nation.flag_emoji %> <%= nation.name %> (<%= nation.price %>)
@@ -75,17 +80,16 @@
                         </span>
                       <% end %>
                     <% end %>
-                    <%#= nations.sort_by { -it.price }.map(&:name).join(", ") %>
                   </div>
                 <% else %>
                   <span class="text-muted">Сквад не выбран</span>
                 <% end %>
               </td>
               <td>
-                <%= Bonus.where(nation_id: nations.map(&:id)).count %>
+                <%= Bonus.where(nation_id: record.nations.map(&:id)).count %>
               </td>
               <td class="text-end">
-                <span class="fw-semibold"><%= user.points %></span>
+                <span class="fw-semibold"><%= record.points %></span>
               </td>
             </tr>
           <% end %>
