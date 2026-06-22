@@ -18,4 +18,14 @@ class User < ApplicationRecord
   def knows_about_shadows?
     admin_access? || squads.exists?(main: false)
   end
+
+  def initials
+    parts = name.to_s.split(/[\s_-]+/).reject(&:blank?)
+
+    if parts.size >= 2
+      (parts.first[0].to_s + parts.last[0].to_s).upcase
+    else
+      name.to_s[0].upcase
+    end
+  end
 end

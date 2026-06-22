@@ -11,12 +11,6 @@
     .owner-checkbox { cursor: pointer; }
     .owner-checkbox.cb-mine input { accent-color: #0d6efd; }
     .owner-checkbox.cb-rival input { accent-color: #dc3545; }
-
-    .owner-color-dot {
-      width: 0.85rem;
-      height: 0.85rem;
-      flex: 0 0 auto;
-    }
   </style>
 <% end %>
 
@@ -32,24 +26,31 @@
     </span>
   </div>
 
-  <div class="card shadow-sm border-0 mb-3">
-    <div class="card-body">
-      <div class="text-muted small text-uppercase mb-2">Подсветить сборные игрока</div>
-      <div class="d-flex flex-wrap gap-3">
-        <% @users.each do |user| %>
-          <% is_me = user == current_user %>
-          <label class="owner-checkbox d-inline-flex align-items-center gap-2 mb-0 <%= is_me ? "cb-mine" : "cb-rival" %>">
-            <input type="checkbox"
-                   class="form-check-input mt-0"
-                   data-highlight-target="checkbox"
-                   data-user-id="<%= user.id %>"
-                   data-action="highlight#refresh"
-                   <%= "checked" if is_me %>>
-            <span class="d-inline-block rounded-circle border owner-color-dot"
-                  style="background-color: <%= user.color.presence || "#dee2e6" %>;"></span>
-            <span class="<%= "fw-semibold" if is_me %>"><%= user.name %><%= " (ты)" if is_me %></span>
-          </label>
-        <% end %>
+  <div class="accordion accordion-flush shadow-sm mb-3" id="accordionFlushExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed text-muted small text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+          Подсветка
+        </button>
+      </h2>
+      <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">
+          <div class="d-flex flex-wrap gap-3">
+            <% @users.each do |user| %>
+              <% is_me = user == current_user %>
+              <label class="owner-checkbox d-inline-flex align-items-center gap-2 mb-0 <%= is_me ? "cb-mine" : "cb-rival" %>">
+                <input type="checkbox"
+                      class="form-check-input mt-0"
+                      data-highlight-target="checkbox"
+                      data-user-id="<%= user.id %>"
+                      data-action="highlight#refresh"
+                      <%= "checked" if is_me %>
+                >
+                <%= user_avatar(user, size: "1.8rem") %>
+              </label>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -81,10 +82,10 @@
                 <div class="d-flex flex-wrap gap-1">
                   <% nation.squads.select(&:main?).each do |squad| %>
                     <span class="badge text-bg-light border">
-                      <span class="d-inline-block rounded-circle border owner-color-dot"
-                          style="background-color: <%= squad.user.color.presence || "#dee2e6" %>;"></span>
+                      <%= user_avatar(squad.user, size: "1.2rem") %>
                       <%= squad.user.name %>
                     </span>
+                    <%#= user_avatar(squad.user, size: "1.8rem") %>
                   <% end %>
                 </div>
               </td>

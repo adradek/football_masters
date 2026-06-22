@@ -36,8 +36,7 @@
               <td><%= record.place %></td>
               <td>
                 <div class="d-flex align-items-center gap-2">
-                  <span class="d-inline-block rounded-circle border player-color-dot"
-                        style="background-color: <%= record.color.presence || "#dee2e6" %>;"></span>
+                  <%= user_avatar(record.user) %>
                   <div>
                     <div class="fw-semibold d-flex align-items-center gap-2">
                       <%= record.name %>

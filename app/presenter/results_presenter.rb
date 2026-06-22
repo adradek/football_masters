@@ -20,7 +20,7 @@ class ResultsPresenter
     users
       .map { |u| u.squads }
       .flatten
-      .select { |squad| squad.main? || current_user.show_shadows? }
+      .select { |squad| squad.main? || current_user&.show_shadows? }
       .map { |squad|  SquadRecord.new(squad:) }
       .sort_by { [-it.points, it.user.proposal] }
       .each_with_index { |record, i| record.place = i + 1 }
