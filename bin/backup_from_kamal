@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Создаёт бэкап продовой sqlite-базы на сервере (через kamal),
+# затем скачивает его по scp в локальную папку.
+#
+# Использование:
+#   bin/backup_from_kamal [локальный_путь]
+#
+# По умолчанию бэкап кладётся в ./prod.sqlite3
+
+SSH_USER="root"
+SSH_HOST="155.212.164.20"
+REMOTE_BACKUP_DIR="/var/lib/docker/volumes/football_masters_storage/_data/backups"
+LOCAL_PATH="${1:-./prod.sqlite3}"
+
+echo "==> Создаю бэкап на сервере..."
+RUNNER='path = Rails.root.join("storage/backups/prod-#{Time.now.utc.strftime("%Y%m%d-%H%M%S")}.sqlite3"); FileUtils.mkdir_p(path.dirname); ActiveRecord::Base.connection.execute("VACUUM INTO #{ActiveRecord::Base.connection.quote(path.to_s)}"); puts path'
+
+output="$(kamal app exec -p --reuse "bin/rails runner '${RUNNER}'")"
+
+# Из вывода kamal вытаскиваем только имя файла бэкапа.
+filename="$(echo "$output" | grep -oE 'prod-[0-9]{8}-[0-9]{6}\.sqlite3' | tail -n1)"
+
+if [[ -z "$filename" ]]; then
+  echo "!! Не удалось определить имя файла бэкапа. Полный вывод команды:" >&2
+  echo "$output" >&2
+  exit 1
+fi
+
+echo "==> Бэкап создан: $filename"
+echo "==> Скачиваю в $LOCAL_PATH ..."
+scp "${SSH_USER}@${SSH_HOST}:${REMOTE_BACKUP_DIR}/${filename}" "$LOCAL_PATH"
+
+echo "==> Готово: $LOCAL_PATH"
