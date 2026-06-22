@@ -10,7 +10,9 @@
       <% @matches.each do |match| %>
         <article class="match-card<%= " match-card--pending" if match.need_processing? %>">
           <header class="match-card-top">
-            <span class="badge text-bg-light border"><%= match.stage.humanize %></span>
+            <span class="match-card-stage">
+              <%= match_stage(match) %>
+            </span>
             <time class="match-card-date">
               <%= match.played_at&.strftime("%d.%m.%Y · %H:%M") %>
             </time>
