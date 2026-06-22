@@ -1,0 +1,82 @@
+<div id="results">
+  <div class="d-flex align-items-center gap-2 mb-3 text-muted">
+    <i class="bi bi-clock-history"></i>
+    <span>
+      Данные актуальны на
+      <span class="fw-semibold text-body"><%= @actual_at.strftime("%d.%m.%Y %H:%M") %></span>
+    </span>
+
+    <% if user_signed_in? && current_user.knows_about_shadows? %>
+      <%= button_to toggle_shadows_users_path,
+            method: :patch,
+            form_class: "ms-auto",
+            class: "btn btn-sm d-inline-flex align-items-center gap-1 #{current_user.show_shadows? ? "btn-secondary" : "btn-outline-secondary"}",
+            title: current_user.show_shadows? ? "Скрыть теневые составы" : "Показать теневые составы" do %>
+        <i class="bi <%= current_user.show_shadows? ? "bi-eye-fill" : "bi-eye-slash" %>"></i>
+        Теневые составы
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="card shadow-sm border-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0 players-table">
+        <thead class="table-light">
+          <tr>
+            <th scope="col" class="text-muted small text-uppercase">#</th>
+            <th scope="col" class="text-muted small text-uppercase">Игрок</th>
+            <th scope="col" class="text-muted small text-uppercase">Команды</th>
+            <th scope="col" class="text-muted small text-uppercase">Встречи</th>
+            <th scope="col" class="text-muted small text-uppercase text-end">Очки</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @results.each do |record| %>
+            <tr class="<%= squad_html_class(record) %>">
+              <td><%= record.place %></td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="d-inline-block rounded-circle border player-color-dot"
+                        style="background-color: <%= record.color.presence || "#dee2e6" %>;"></span>
+                  <div>
+                    <div class="fw-semibold d-flex align-items-center gap-2">
+                      <%= record.name %>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <% if record.nations.any? %>
+                  <div class="d-flex flex-wrap gap-1">
+                    <% if true %>
+                      <% record.nations.sort_by { -it.price }.each do |nation| %>
+                        <% if nil %>
+                          <span class="badge text-bg-light border nation-chip">
+                            <%= nation.flag_emoji %> <%= nation.name %> (<%= nation.price %>)
+                          </span>
+                        <% end %>
+                        <span class="ms-3 fs-4 lh-1"
+                          title="<%= "#{ nation.name } (#{ nation.points }/#{ nation.price })" %>"
+                        >
+                          <%= nation.flag_emoji %>
+                        </span>
+                      <% end %>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <span class="text-muted">Сквад не выбран</span>
+                <% end %>
+              </td>
+              <td>
+                <%= Bonus.where(nation_id: record.nations.map(&:id)).count %>
+              </td>
+              <td class="text-end">
+                <span class="fw-semibold"><%= record.points %></span>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

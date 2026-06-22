@@ -6,8 +6,8 @@ class ApplicationPolicy
     @record = record
   end
 
-  def index?    = false
-  def show?     = false
+  def index?    = read_level
+  def show?     = reed_level
   def create?   = false
   def new?      = create?
   def update?   = false
@@ -27,5 +27,17 @@ class ApplicationPolicy
     private
 
     attr_reader :user, :scope
+  end
+
+  private
+
+  def read_level = false
+
+  def admin?
+    user.present? && user.admin_access?
+  end
+
+  def superadmin?
+    user.present? && user.superadmin?
   end
 end

@@ -14,4 +14,8 @@ class User < ApplicationRecord
   def points
     squads.find(&:main?)&.nations&.sum(:points) || 0
   end
+
+  def knows_about_shadows?
+    admin_access? || squads.exists?(main: false)
+  end
 end

@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   get "login/:secret" => "sessions#create", as: :login
   delete "logout" => "sessions#destroy", as: :logout
 
-  resources :users, only: %i[index]
+  resources :users, only: %i[index] do
+    patch :toggle_shadows, on: :collection
+  end
   resources :nations, only: %i[index]
   resources :matches, only: %i[index]
 

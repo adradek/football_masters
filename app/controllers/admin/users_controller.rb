@@ -40,7 +40,7 @@ module Admin
     private
 
     def user_params
-      params.require(:user).permit(:name, :secret, :role, :color, :proposal)
+      params.require(:user).permit(:name, :secret, :role, :color, :proposal, :show_shadows)
     end
   end
 end

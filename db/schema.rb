@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_20_013242) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_22_105011) do
   create_table "bonuses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
@@ -89,6 +89,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_20_013242) do
     t.integer "proposal"
     t.integer "role", default: 0, null: false
     t.string "secret", null: false
+    t.boolean "show_shadows", default: false, null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["proposal"], name: "index_users_on_proposal"
