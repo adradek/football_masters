@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :require_login, only: :toggle_shadows
 
   def index
-    @results = ResultsPresenter.new(users: User.includes(squads: :nations), current_user:)
+    @results = results_presenter
     @actual_at = Match.data_actual_at
   end
 
@@ -18,5 +18,11 @@ class UsersController < ApplicationController
       format.turbo_stream
       format.html { redirect_to root_path }
     end
+  end
+
+  private
+
+  def results_presenter
+    ResultsPresenter.new(users: User.includes(squads: :nations), current_user:)
   end
 end
