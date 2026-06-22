@@ -1,5 +1,8 @@
 class MatchesController < ApplicationController
   def index
-    @matches = Match.includes(:home, :away).order(played_at: :desc)
+    @matches = Match.includes(
+      home: { squads: :user },
+      away: { squads: :user }
+    ).order(played_at: :desc)
   end
 end

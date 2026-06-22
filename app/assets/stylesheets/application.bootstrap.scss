@@ -67,6 +67,21 @@
   text-align: left;
 }
 
+.match-owners {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  margin-top: 0.5rem;
+}
+
+.match-owners--home {
+  justify-content: flex-end;
+}
+
+.match-owners--away {
+  justify-content: flex-start;
+}
+
 .match-team-name {
   font-weight: 800;
   overflow-wrap: anywhere;
