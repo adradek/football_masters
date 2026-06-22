@@ -12,6 +12,8 @@ class Match < ApplicationRecord
     where.not(state: :completed).where(played_at: ..2.hours.ago)
   }
 
+  scope :with_users, -> { includes(home: { squads: :user }, away: { squads: :user }) }
+
   enum :stage, {
     group_round: 0,
     round_of_32: 1,
