@@ -38,7 +38,7 @@
             <tr class="<%= squad_html_class(record) %>">
               <td><%= record.place %></td>
               <% if user_signed_in? && current_user.money_ball? %>
-                <td title="отдельный конкурс"><%= "💰" if record.user.money_ball? %></td>
+                <td title="отдельный конкурс"><%= "💰" if record.user.money_ball? && record.main? %></td>
               <% end %>
               <td>
                 <div class="d-flex align-items-center gap-2">
