@@ -24,7 +24,7 @@
         <thead class="table-light">
           <tr>
             <th scope="col" class="text-muted small text-uppercase">#</th>
-            <% if current_user.money_ball? %>
+            <% if user_signed_in? && current_user.money_ball? %>
               <th scope="col" class="text-muted small text-uppercase">🏆</th>
             <% end %>
             <th scope="col" class="text-muted small text-uppercase">Игрок</th>
@@ -37,7 +37,7 @@
           <% @results.each do |record| %>
             <tr class="<%= squad_html_class(record) %>">
               <td><%= record.place %></td>
-              <% if current_user.money_ball? %>
+              <% if user_signed_in? && current_user.money_ball? %>
                 <td title="отдельный конкурс"><%= "💰" if record.user.money_ball? %></td>
               <% end %>
               <td>
