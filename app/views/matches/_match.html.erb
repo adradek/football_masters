@@ -1,4 +1,4 @@
-<article class="match-card<%= " match-card--pending" if match.need_processing? %>">
+<article class="match-card<%= " match-card--live" if match.live? %><%= " match-card--pending" if !match.live? && match.need_processing? %>">
   <header class="match-card-top">
     <span class="match-card-stage">
       <%= match_stage(match) %>
@@ -59,7 +59,9 @@
   </div>
 
   <footer class="match-card-bottom">
-    <% if match.completed? %>
+    <% if match.live? %>
+      <span class="badge match-live-badge"><span class="match-live-dot"></span>LIVE</span>
+    <% elsif match.completed? %>
       <span class="badge text-bg-success">Обработан</span>
     <% elsif match.need_processing? %>
       <span class="badge text-bg-warning">Ждёт обработки</span>

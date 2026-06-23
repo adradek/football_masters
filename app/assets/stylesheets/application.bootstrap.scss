@@ -23,6 +23,47 @@
   box-shadow: 0 0.75rem 1.75rem rgba(255, 191, 69, 0.22);
 }
 
+.match-card--live {
+  border-color: #1f9d55;
+  box-shadow: 0 0.75rem 1.75rem rgba(31, 157, 85, 0.25);
+  animation: match-live-glow 2s ease-in-out infinite;
+}
+
+.match-live-badge {
+  align-items: center;
+  background: #1f9d55;
+  color: #fff;
+  display: inline-flex;
+  gap: 0.4rem;
+  letter-spacing: 0.05em;
+}
+
+.match-live-dot {
+  background: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  height: 0.5rem;
+  width: 0.5rem;
+  animation: match-live-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes match-live-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.7); }
+}
+
+@keyframes match-live-glow {
+  0%, 100% { box-shadow: 0 0.75rem 1.75rem rgba(31, 157, 85, 0.18); }
+  50% { box-shadow: 0 0.75rem 1.85rem rgba(31, 157, 85, 0.4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .match-card--live,
+  .match-live-dot {
+    animation: none;
+  }
+}
+
 .match-card-top,
 .match-card-bottom {
   align-items: center;
