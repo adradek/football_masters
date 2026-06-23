@@ -33,7 +33,8 @@ module App
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    # БД хранит время в UTC (дефолт Rails), а отображение и парсинг ввода форм — в московской зоне.
+    config.time_zone = "Europe/Moscow"
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Don't generate system test files.
