@@ -24,7 +24,12 @@ Rails.application.routes.draw do
 
     resources :matches, only: %i[index new create edit update] do
       get :pending, on: :collection
-      resources :bonuses, only: %i[new create]
+      resources :bonuses, only: %i[index new create edit update destroy] do
+        collection do
+          get :processing
+          post :processing, action: :process_match, as: nil
+        end
+      end
       resources :bonus_checks, only: %i[create]
     end
 

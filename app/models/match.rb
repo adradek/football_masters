@@ -5,6 +5,8 @@ class Match < ApplicationRecord
   belongs_to :home, class_name: "Nation", optional: true
   belongs_to :away, class_name: "Nation", optional: true
 
+  has_many :bonuses
+
   validates :played_at, presence: true
   validate :home_and_away_differ
 

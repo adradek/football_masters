@@ -1,0 +1,79 @@
+<% content_for :title, "Бонусы матча" %>
+
+<div class="container py-4" style="margin-top: 4rem;">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4 mb-0">Бонусы за матч</h1>
+        <div class="d-flex gap-2">
+          <%= link_to "Обработка", processing_admin_match_bonuses_path(@match), class: "btn btn-outline-secondary btn-sm" %>
+          <%= link_to "К матчам", admin_matches_path, class: "btn btn-outline-secondary btn-sm" %>
+        </div>
+      </div>
+
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge text-bg-secondary"><%= @match.stage.humanize %></span>
+            <span class="text-muted small">
+              <%= @match.played_at ? l(@match.played_at, format: :short) : "—" %>
+            </span>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center fs-5">
+            <span class="fw-semibold text-end">
+              <%= @match.home&.name_with_flag || "— хозяева —" %>
+            </span>
+            <span class="badge text-bg-light border mx-2"><%= @match.score.presence || "—" %></span>
+            <span class="fw-semibold">
+              <%= @match.away&.name_with_flag || "— гости —" %>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <% if @bonuses.any? %>
+        <div class="card shadow-sm mb-3">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">Команда</th>
+                  <th scope="col">Причина</th>
+                  <th scope="col">Описание</th>
+                  <th scope="col" class="text-center">Очки</th>
+                  <th scope="col" class="text-end">Действия</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @bonuses.each do |bonus| %>
+                  <tr>
+                    <td class="fw-semibold"><%= bonus.nation.name_with_flag %></td>
+                    <td><%= bonus.reason_label %></td>
+                    <td class="text-muted small"><%= bonus.description %></td>
+                    <td class="text-center">
+                      <span class="badge text-bg-primary rounded-pill fs-6">+<%= bonus.value %></span>
+                    </td>
+                    <td class="text-end text-nowrap">
+                      <%= link_to "Изменить", edit_admin_match_bonus_path(@match, bonus),
+                                  class: "btn btn-outline-secondary btn-sm" %>
+                      <%= button_to "Удалить", admin_match_bonus_path(@match, bonus),
+                                    method: :delete,
+                                    form: { class: "d-inline" },
+                                    class: "btn btn-outline-danger btn-sm",
+                                    data: { turbo_confirm: "Удалить бонус?" } %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <% else %>
+        <p class="text-muted">Бонусов за этот матч пока нет.</p>
+      <% end %>
+
+      <%= link_to "Добавить бонус", new_admin_match_bonus_path(@match), class: "btn btn-success" %>
+    </div>
+  </div>
+</div>

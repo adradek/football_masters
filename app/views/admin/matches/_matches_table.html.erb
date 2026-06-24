@@ -41,8 +41,10 @@
                     <%= link_to "Изменить", edit_admin_match_path(match),
                                 class: "btn btn-outline-secondary btn-sm" %>
                   <% end %>
+                  <%= link_to "Бонусы", admin_match_bonuses_path(match),
+                              class: "btn btn-outline-primary btn-sm" %>
                   <% unless match.completed? %>
-                    <%= link_to "Обработать", new_admin_match_bonus_path(match),
+                    <%= link_to "Обработать", processing_admin_match_bonuses_path(match),
                                 class: "btn btn-outline-success btn-sm" %>
                   <% end %>
                 </td>

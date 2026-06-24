@@ -1,0 +1,18 @@
+<% content_for :title, "Редактирование бонуса" %>
+
+<div class="container py-4" style="margin-top: 4rem;">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4 mb-0">Редактирование бонуса</h1>
+        <%= link_to "К бонусам", admin_match_bonuses_path(@match), class: "btn btn-outline-secondary btn-sm" %>
+      </div>
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <%= render "form" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
