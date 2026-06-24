@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_22_201904) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_24_093512) do
   create_table "bonuses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
@@ -58,6 +58,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_201904) do
     t.integer "fifa_place", null: false
     t.integer "fifa_rank", null: false
     t.string "flag_emoji", null: false
+    t.boolean "leaved", default: false, null: false
     t.string "name", null: false
     t.string "normalized_name"
     t.integer "points", default: 0, null: false

@@ -1,0 +1,53 @@
+<% content_for :title, "Страны" %>
+
+<div class="container py-4" style="margin-top: 4rem;">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 mb-0">Страны</h1>
+    <% if policy([:admin, Nation]).create? %>
+      <%= link_to "Добавить страну", new_admin_nation_path, class: "btn btn-outline-success" %>
+    <% end %>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">Страна</th>
+            <th scope="col">FIFA место</th>
+            <th scope="col">FIFA очки</th>
+            <th scope="col">Очки</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Статус</th>
+            <% if policy([:admin, Nation]).edit? %>
+              <th scope="col">Кнопки</th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @nations.each do |nation| %>
+            <tr>
+              <td><%= nation.flag_emoji %> <%= nation.name %></td>
+              <td><%= nation.fifa_place %></td>
+              <td><%= nation.fifa_rank %></td>
+              <td><%= nation.points %></td>
+              <td><%= nation.price %></td>
+              <td>
+                <% if nation.leaved? %>
+                  <span class="badge text-bg-secondary">Выбыла</span>
+                <% else %>
+                  <span class="badge text-bg-success">В игре</span>
+                <% end %>
+              </td>
+              <% if policy([:admin, nation]).edit? %>
+                <td>
+                  <%= link_to "edit", edit_admin_nation_path(nation), class: "btn btn-sm btn-outline-primary" %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

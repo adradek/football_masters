@@ -27,6 +27,8 @@ Rails.application.routes.draw do
       resources :bonuses, only: %i[new create]
       resources :bonus_checks, only: %i[create]
     end
+
+    resources :nations, only: %i[index new create edit update]
   end
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)

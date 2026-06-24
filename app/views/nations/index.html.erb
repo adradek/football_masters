@@ -74,8 +74,8 @@
               <td class="text-muted"><%= index %></td>
               <td>
                 <div class="d-flex align-items-center gap-2">
-                  <span class="nation-flag"><%= nation.flag_emoji %></span>
-                  <span class="fw-semibold"><%= nation.name %></span>
+                  <span class="<%= nation_flag_classes(nation, "nation-flag") %>"><%= nation.flag_emoji %></span>
+                  <span class="<%= nation_name_classes(nation, "fw-semibold") %>"><%= nation.name %></span>
                 </div>
               </td>
               <td>

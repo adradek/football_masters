@@ -60,7 +60,7 @@
                             <%= nation.flag_emoji %> <%= nation.name %> (<%= nation.price %>)
                           </span>
                         <% end %>
-                        <span class="ms-3 fs-4 lh-1"
+                        <span class="<%= nation_flag_classes(nation, "ms-3", "fs-4", "lh-1") %>"
                           title="<%= "#{ nation.name } (#{ nation.points }/#{ nation.price })" %>"
                         >
                           <%= nation.flag_emoji %>

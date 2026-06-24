@@ -1,0 +1,17 @@
+<% content_for :title, "Редактирование страны" %>
+
+<div class="container py-4" style="margin-top: 4rem;">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-body-tertiary">
+          <h1 class="h4 mb-0">Редактирование: <%= @nation.flag_emoji %> <%= @nation.name %></h1>
+        </div>
+
+        <div class="card-body">
+          <%= render "form", submit_label: "Сохранить" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
