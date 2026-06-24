@@ -73,7 +73,7 @@
                 <% end %>
               </td>
               <td>
-                <%= Bonus.where(nation_id: record.nations.map(&:id)).count %>
+                <%= Bonus.where(nation_id: record.nations.map(&:id)).where.not(reason: "promotion").count %>
               </td>
               <td class="text-end">
                 <span class="fw-semibold"><%= record.points %></span>
