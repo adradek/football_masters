@@ -58,6 +58,9 @@
       </ul>
 
       <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to "Правила", rules_path, class: "nav-link" %>
+        </li>
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
             <a
@@ -86,7 +89,7 @@
           </li>
         <% else %>
           <li class="nav-item">
-            <span class="navbar-text">Гость</span>
+            <span class="nav-link disabled" aria-disabled="true">Гость</span>
           </li>
         <% end %>
       </ul>

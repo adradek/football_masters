@@ -1,0 +1,99 @@
+<% content_for :title, "Правила" %>
+
+<div class="container py-4" style="margin-top: 4rem;">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-9 col-xl-8">
+      <div class="d-flex align-items-center gap-2 mb-4">
+        <i class="bi bi-journal-text fs-3 text-warning"></i>
+        <h1 class="h3 mb-0">Правила турнира</h1>
+      </div>
+
+      <%# Суть игры %>
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-body-tertiary fw-semibold">
+          <i class="bi bi-flag me-1"></i> Условие победы
+        </div>
+        <div class="card-body">
+          <p class="mb-0">
+            Побеждает участник, чьи команды в совокупности принесут <strong>больше очков</strong>. Если два или более
+            участников набирают одинаковое количество очков, считаем их результаты равными.
+            Дополнительных показателей подсчитывать не будем.
+          </p>
+        </div>
+      </div>
+
+      <%# Начисление очков %>
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-body-tertiary fw-semibold">
+          <i class="bi bi-trophy me-1"></i> Как начисляются очки
+        </div>
+        <div class="card-body">
+          <p class="text-muted">После каждого сыгранного матча сборная получает очки за результат:</p>
+          <div class="table-responsive">
+            <table class="table align-middle mb-0">
+              <tbody>
+                <tr>
+                  <td>Победа в основное время</td>
+                  <td class="text-end fw-bold">+<%= Bonuses::Clerk::POINTS[:victory] %></td>
+                </tr>
+                <tr>
+                    <td>Победа в дополнительное время (плей-офф)</td>
+                    <td class="text-end fw-bold">+2</td>
+                  </tr>
+                <tr>
+                  <td>Ничья, победа/поражение по пенальти</td>
+                  <td class="text-end fw-bold">+1</td>
+                </tr>
+                <tr>
+                  <td>Поражение в основное время</td>
+                  <td class="text-end fw-bold">+0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mt-5">
+            Помимо результата игры команды будут получать бонусы за проход в следующую стадию:
+            <div class="table-responsive mt-3">
+              <table class="table align-middle mb-0">
+                <tbody>
+                  <tr>
+                    <td>Выход из группы (в 1/16 финала)</td>
+                    <td class="text-end fw-bold">+1</td>
+                  </tr>
+                  <tr>
+                    <td>Выход в 1/8 финала</td>
+                    <td class="text-end fw-bold">+1</td>
+                  </tr>
+                  <tr>
+                    <td>Выход в четвертьфинал</td>
+                    <td class="text-end fw-bold">+2</td>
+                  </tr>
+                  <tr>
+                    <td>Выход в полуфинал</td>
+                    <td class="text-end fw-bold">+3</td>
+                  </tr>
+                  <tr>
+                    <td>Выход в финал</td>
+                    <td class="text-end fw-bold">+3</td>
+                  </tr>
+                  <tr>
+                    <td>3 место</td>
+                    <td class="text-end fw-bold">+1</td>
+                  </tr>
+                  <tr>
+                    <td>Чемпионы мира</td>
+                    <td class="text-end fw-bold">+3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-muted small text-center mb-0">
+        Удачи в турнире! 🏆
+      </p>
+    </div>
+  </div>
+</div>
