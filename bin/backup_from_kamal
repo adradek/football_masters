@@ -12,7 +12,7 @@ set -euo pipefail
 SSH_USER="root"
 SSH_HOST="155.212.164.20"
 REMOTE_BACKUP_DIR="/var/lib/docker/volumes/football_masters_storage/_data/backups"
-LOCAL_PATH="${1:-./prod.sqlite3}"
+LOCAL_PATH="${1:-./development.sqlite3}"
 
 echo "==> Создаю бэкап на сервере..."
 RUNNER='path = Rails.root.join("storage/backups/prod-#{Time.now.utc.strftime("%Y%m%d-%H%M%S")}.sqlite3"); FileUtils.mkdir_p(path.dirname); ActiveRecord::Base.connection.execute("VACUUM INTO #{ActiveRecord::Base.connection.quote(path.to_s)}"); puts path'
