@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :users, only: %i[index] do
     patch :toggle_shadows, on: :collection
   end
-  resources :nations, only: %i[index]
+  resources :nations, only: %i[index show]
   resources :matches, only: %i[index]
   resources :rules, only: %i[index]
 

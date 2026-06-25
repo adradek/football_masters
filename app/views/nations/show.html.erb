@@ -1,0 +1,122 @@
+<% content_for :title, @nation.name %>
+
+<% content_for :head do %>
+  <style>
+    .nation-avatar { overflow: hidden; }
+    .nation-hero-flag { font-size: 4.5rem; line-height: 1; }
+    .nation-stat { min-width: 6rem; }
+    .nation-stat-value { font-size: 1.6rem; font-weight: 700; line-height: 1.1; }
+    .nation-stat-label { font-size: .75rem; letter-spacing: .03em; }
+  </style>
+<% end %>
+
+<div class="container py-4" style="margin-top: 4rem;">
+  <div class="mb-3">
+    <%= link_to nations_path, class: "text-decoration-none text-muted small" do %>
+      <i class="bi bi-arrow-left"></i> Ко всем сборным
+    <% end %>
+  </div>
+
+  <div class="card shadow-sm border-0 mb-4">
+    <div class="card-body">
+      <div class="d-flex flex-wrap align-items-center gap-3">
+        <%# Здесь позже будет аватар из Active Storage; пока — флаг в кружке. %>
+        <%= nation_avatar(@nation, size: "5rem") %>
+
+        <div class="flex-grow-1">
+          <h1 class="h3 fw-bold mb-1 <%= nation_name_classes(@nation) %>">
+            <span class="<%= nation_flag_classes(@nation) %>"><%= @nation.flag_emoji %></span>
+            <%= @nation.name %>
+            <% if @nation.leaved? %>
+              <span class="badge text-bg-secondary align-middle">Выбыла</span>
+            <% end %>
+          </h1>
+          <div class="text-muted small d-flex flex-wrap gap-3">
+            <% if @nation.group %>
+              <span><i class="bi bi-diagram-3"></i> <%= @nation.group.name %></span>
+            <% end %>
+            <span><i class="bi bi-trophy"></i> FIFA #<%= @nation.fifa_place %> · <%= @nation.fifa_rank %></span>
+          </div>
+        </div>
+
+        <%# Очки и цена %>
+        <div class="d-flex gap-4 text-center">
+          <div class="nation-stat">
+            <div class="nation-stat-value"><%= @nation.price %></div>
+            <div class="nation-stat-label text-muted text-uppercase">Цена</div>
+          </div>
+          <div class="nation-stat">
+            <div class="nation-stat-value"><%= @nation.points %></div>
+            <div class="nation-stat-label text-muted text-uppercase">Очки</div>
+          </div>
+        </div>
+      </div>
+
+      <% if @owners.any? %>
+        <hr class="my-3">
+        <div class="d-flex flex-wrap align-items-center gap-2">
+          <span class="text-muted small text-uppercase me-1 mr-4">Население:</span>
+          <% @owners.each do |user| %>
+            <span class="badge text-bg-light border d-inline-flex align-items-center gap-1">
+              <%= user_avatar(user, size: "1.2rem") %>
+              <%= user.name %>
+            </span>
+          <% end %>
+        </div>
+      <% else %>
+        <hr class="my-3">
+        <p class="text-muted small mb-0">Эта сборная пока ни у кого не в основном составе 🤷‍♂️</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="section-heading mb-3">
+    <h2 class="h5 fw-bold mb-0">Очки</h2>
+  </div>
+  <% if @bonuses.any? %>
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="text-muted small text-uppercase">Матч</th>
+              <th class="text-muted small text-uppercase">За что</th>
+              <th class="text-muted small text-uppercase text-end">Очки</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @bonuses.each do |bonus| %>
+              <tr>
+                <td class="text-muted small">
+                  <%= bonus.match.played_at&.strftime("%d.%m.%Y") %>
+                </td>
+                <td><%= bonus.description %></td>
+                <td class="text-end fw-semibold"><%= bonus.value %></td>
+              </tr>
+            <% end %>
+          </tbody>
+          <tfoot class="table-light">
+            <tr>
+              <th colspan="2" class="text-end text-uppercase small text-muted">Итого</th>
+              <th class="text-end"><%= @bonuses.sum(&:value) %></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  <% else %>
+    <p class="text-muted mb-4">Очков пока нет — сборная ещё не сыграла зачётных матчей.</p>
+  <% end %>
+
+  <%# === Матчи === %>
+  <div class="section-heading mb-3">
+    <h2 class="h5 fw-bold mb-0">Матчи</h2>
+  </div>
+  <% if @matches.any? %>
+    <div class="match-list">
+      <%= render partial: "matches/match", collection: @matches %>
+    </div>
+  <% else %>
+    <p class="text-muted">Матчей в базе нет 🤷‍♂️</p>
+  <% end %>
+</div>

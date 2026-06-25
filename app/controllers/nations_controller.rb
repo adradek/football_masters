@@ -15,4 +15,12 @@ class NationsController < ApplicationController
 
     @actual_at = Match.data_actual_at
   end
+
+  def show
+    @nation = Nation.find(params[:id])
+    @owners = @nation.squads.select(&:main?).map(&:user).sort_by(&:id)
+    @matches = @nation.matches.with_users.order(played_at: :desc).to_a
+    @bonuses = @nation.bonuses.includes(:match).order(created_at: :asc).references(:match)
+    @actual_at = Match.data_actual_at
+  end
 end

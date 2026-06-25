@@ -73,10 +73,10 @@
                 data-owner-ids="<%= @owners_by_nation[nation.id].join(",") %>">
               <td class="text-muted"><%= index %></td>
               <td>
-                <div class="d-flex align-items-center gap-2">
+                <%= link_to nation_path(nation), class: "d-flex align-items-center gap-2 text-decoration-none text-body" do %>
                   <span class="<%= nation_flag_classes(nation, "nation-flag") %>"><%= nation.flag_emoji %></span>
                   <span class="<%= nation_name_classes(nation, "fw-semibold") %>"><%= nation.name %></span>
-                </div>
+                <% end %>
               </td>
               <td>
                 <div class="d-flex flex-wrap gap-1">

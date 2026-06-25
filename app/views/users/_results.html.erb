@@ -53,13 +53,8 @@
               <td>
                 <% if record.nations.any? %>
                   <div class="d-flex flex-wrap gap-1">
-                    <% if true %>
-                      <% record.nations.sort_by { -it.price }.each do |nation| %>
-                        <% if nil %>
-                          <span class="badge text-bg-light border nation-chip">
-                            <%= nation.flag_emoji %> <%= nation.name %> (<%= nation.price %>)
-                          </span>
-                        <% end %>
+                    <% record.nations.sort_by { -it.price }.each do |nation| %>
+                      <%= link_to nation_path(nation), class: "text-decoration-none text-body" do %>
                         <span class="<%= nation_flag_classes(nation, "ms-3", "fs-4", "lh-1") %>"
                           title="<%= "#{ nation.name } (#{ nation.points }/#{ nation.price })" %>"
                         >
