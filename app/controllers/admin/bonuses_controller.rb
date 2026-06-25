@@ -57,11 +57,11 @@ module Admin
 
     # Автоматическая обработка матча — начисление всех бонусов разом (Cashier).
     def processing
-      authorize [:admin, Bonus]
+      authorize [:admin, Bonus], :create?
     end
 
     def process_match
-      authorize [:admin, Bonus]
+      authorize [:admin, Bonus], :create?
 
       result = Bonuses::Cashier.call(match: @match)
 
