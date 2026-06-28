@@ -1,7 +1,7 @@
 module Admin
   class NationsController < BaseController
     def index
-      @nations = Nation.order(points: :desc, price: :asc, id: :asc)
+      @nations = Nation.order(price: :desc, name: :asc)
       authorize [:admin, @nations]
     end
 

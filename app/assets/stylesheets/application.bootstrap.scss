@@ -2,6 +2,15 @@
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'tom-select/dist/scss/tom-select.bootstrap5';
 
+tr.admin-left-nation {
+  background-color: #dddddd;
+  box-shadow: inset 4px 0 0 #dddddd;
+}
+
+tr.admin-left-nation td {
+  background-color: transparent;
+}
+
 .match-list {
   display: grid;
   gap: 0.85rem;

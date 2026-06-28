@@ -26,7 +26,7 @@
         </thead>
         <tbody>
           <% @nations.each do |nation| %>
-            <tr>
+            <tr class="<%= "admin-left-nation" if nation.leaved? %>">
               <td><%= nation.flag_emoji %> <%= nation.name %></td>
               <td><%= nation.fifa_place %></td>
               <td><%= nation.fifa_rank %></td>
