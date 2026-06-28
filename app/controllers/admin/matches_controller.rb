@@ -11,7 +11,7 @@ module Admin
     end
 
     def new
-      @match = Match.new
+      @match = Match.new(stage: :round_of_32)
       authorize [:admin, @match]
     end
 
