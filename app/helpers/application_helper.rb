@@ -9,7 +9,17 @@ module ApplicationHelper
     user_signed_in? && current_user.superadmin?
   end
 
-  # Цветной кружок с инициалами юзера — замена аватара.
+  def safe_back_path(fallback)
+    referer = request.referer
+    return fallback if referer.blank?
+
+    uri = URI.parse(referer)
+    same_origin = uri.host == request.host && uri.port == request.port
+    same_origin && uri.request_uri != request.fullpath ? uri.request_uri : fallback
+  rescue URI::InvalidURIError
+    fallback
+  end
+
   def user_avatar(user, size: "1.5rem")
     bg = user.color.presence || DEFAULT_AVATAR_COLOR
     tag.span(

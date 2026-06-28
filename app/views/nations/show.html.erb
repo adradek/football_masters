@@ -12,8 +12,8 @@
 
 <div class="container py-4" style="margin-top: 4rem;">
   <div class="mb-3">
-    <%= link_to nations_path, class: "text-decoration-none text-muted small" do %>
-      <i class="bi bi-arrow-left"></i> Ко всем сборным
+    <%= link_to safe_back_path(nations_path), class: "text-decoration-none text-muted small" do %>
+      <i class="bi bi-arrow-left"></i> Назад
     <% end %>
   </div>
 
