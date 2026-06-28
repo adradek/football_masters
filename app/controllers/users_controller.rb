@@ -23,6 +23,6 @@ class UsersController < ApplicationController
   private
 
   def results_presenter
-    ResultsPresenter.new(users: User.includes(squads: :nations), current_user:)
+    ResultsPresenter.new(users: User.includes(squads: { nations: :bonuses }), current_user:)
   end
 end
