@@ -15,7 +15,12 @@ module NationsHelper
 
   # CSS-классы для флага: у выбывшей страны флаг обесцвечивается.
   def nation_flag_classes(nation, *base)
-    base << "nation-leaved-flag" if nation.leaved?
+    if nation.leaved_recently?
+      base << "nation-leaved-recently-flag"
+    elsif nation.leaved?
+      base << "nation-leaved-flag"
+    end
+
     base.compact.join(" ")
   end
 

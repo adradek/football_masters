@@ -69,9 +69,11 @@
               </td>
               <td>
                 <%#= Bonus.where(nation_id: record.nations.map(&:id)).where.not(reason: "promotion").count %>
-                <%= record.round_actual_matches(actual_stage: "round_of_32") %>
+                <%= record.round_actual_matches %>
                 из
                 <%= record.round_expected_matches(former_stage: "group_round") %>
+                <span class="arrow">→</span>
+                <%= record.promoted_nations_number %>
               </td>
               <td class="text-end">
                 <span class="fw-semibold"><%= record.points %></span>

@@ -2,6 +2,11 @@
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'tom-select/dist/scss/tom-select.bootstrap5';
 
+.arrow {
+  font-size: 18px;
+  font-weight: 600;
+}
+
 tr.admin-left-nation {
   background-color: #dddddd;
   box-shadow: inset 4px 0 0 #dddddd;
@@ -168,10 +173,13 @@ tr.admin-left-nation td {
   text-transform: uppercase;
 }
 
-// Выбывшие страны: флаг обесцвечивается, название чуть бледнее.
 .nation-leaved-flag {
   filter: grayscale(70%);
   opacity: 0.2;
+}
+
+.nation-leaved-recently-flag {
+  opacity: 0.4;
 }
 
 .nation-leaved-name {

@@ -26,4 +26,17 @@ class Nation < ApplicationRecord
     @matches = nil
     super
   end
+
+  def leaved_recently?
+    leaved? && recently?
+  end
+
+  private
+
+  def recently?
+    Match
+      .where(stage: Match::CURRENT_STAGE)
+      .where("home_id = :id OR away_id = :id", id:)
+      .exists?
+  end
 end

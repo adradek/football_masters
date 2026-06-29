@@ -35,15 +35,21 @@ class SquadRecord
     @user ||= squad.user
   end
 
-  def round_actual_matches(actual_stage:)
+  def round_actual_matches
     nations.select do
-      it.bonuses.any? { |b| b.reason != "promotion" && b.match.stage == actual_stage.to_s }
+      it.bonuses.any? { |b| b.reason != "promotion" && b.match.stage == Match::CURRENT_STAGE }
     end.size
   end
 
   def round_expected_matches(former_stage:)
     nations.select do
       it.bonuses.any? { |b| b.reason == "promotion" && b.match.stage == former_stage.to_s }
+    end.size
+  end
+
+  def promoted_nations_number
+    nations.select do
+      it.bonuses.any? { |b| b.reason == "promotion" && b.match.stage == Match::CURRENT_STAGE }
     end.size
   end
 end
