@@ -34,6 +34,10 @@ Rails.application.routes.draw do
       resources :bonus_checks, only: %i[create]
     end
 
+    resources :playoff_matches, only: %i[new create] do
+      get :options, on: :collection
+    end
+
     resources :nations, only: %i[index new create edit update]
 
     resources :visits, only: %i[index]

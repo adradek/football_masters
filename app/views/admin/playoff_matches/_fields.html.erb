@@ -1,0 +1,42 @@
+<% previous = Match.previous_stage(stage) %>
+
+<div class="row g-3">
+  <% if previous %>
+    <div class="col-12 col-md-6">
+      <%= label_tag "match_home_feeder_id", "Домашний матч (победитель → хозяева)", class: "form-label" %>
+      <%= select_tag "match[home_feeder_id]",
+            options_from_collection_for_select(Match.promotion_candidates_for(stage, :home_side), :id, :promotion_label),
+            include_blank: "—",
+            class: "form-select",
+            data: { controller: "tom-select", tom_select_placeholder: "Поиск матча…" } %>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <%= label_tag "match_away_feeder_id", "Гостевой матч (победитель → гости)", class: "form-label" %>
+      <%= select_tag "match[away_feeder_id]",
+            options_from_collection_for_select(Match.promotion_candidates_for(stage, :away_side), :id, :promotion_label),
+            include_blank: "—",
+            class: "form-select",
+            data: { controller: "tom-select", tom_select_placeholder: "Поиск матча…" } %>
+    </div>
+  <% else %>
+    <div class="col-12">
+      <p class="text-muted mb-0">
+        Для стадии «<%= stage.to_s.humanize %>» нет предыдущей стадии плей-офф —
+        задайте команды вручную через обычную форму матча.
+      </p>
+    </div>
+  <% end %>
+
+  <div class="col-12 col-md-6">
+    <%= label_tag "match_promotion_side", "Сторона прохода создаваемого матча", class: "form-label" %>
+    <%= select_tag "match[promotion_side]",
+          options_for_select(Match.promotion_sides.keys.map { |s| [s.humanize, s] }),
+          class: "form-select" %>
+  </div>
+
+  <div class="col-12 col-md-6">
+    <%= label_tag "match_played_at", "Дата и время", class: "form-label" %>
+    <%= datetime_field_tag "match[played_at]", nil, class: "form-control" %>
+  </div>
+</div>

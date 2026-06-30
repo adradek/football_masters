@@ -9,3 +9,6 @@ application.register("tom-select", TomSelectController)
 
 import HighlightController from "./highlight_controller"
 application.register("highlight", HighlightController)
+
+import PlayoffBuilderController from "./playoff_builder_controller"
+application.register("playoff-builder", PlayoffBuilderController)
