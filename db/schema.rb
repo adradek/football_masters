@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_29_234519) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_30_113923) do
   create_table "bonuses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
@@ -42,6 +42,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_29_234519) do
     t.datetime "created_at", null: false
     t.integer "home_id"
     t.datetime "played_at"
+    t.integer "promotion_game_id"
+    t.integer "promotion_side", default: 0, null: false
     t.string "score"
     t.string "score_extra"
     t.string "score_penalty"
@@ -51,6 +53,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_29_234519) do
     t.index ["away_id"], name: "index_matches_on_away_id"
     t.index ["home_id"], name: "index_matches_on_home_id"
     t.index ["played_at"], name: "index_matches_on_played_at"
+    t.index ["promotion_game_id"], name: "index_matches_on_promotion_game_id"
   end
 
   create_table "nations", force: :cascade do |t|
@@ -112,6 +115,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_29_234519) do
   add_foreign_key "bonuses", "nations"
   add_foreign_key "groups_nations", "groups"
   add_foreign_key "groups_nations", "nations"
+  add_foreign_key "matches", "matches", column: "promotion_game_id"
   add_foreign_key "matches", "nations", column: "away_id"
   add_foreign_key "matches", "nations", column: "home_id"
   add_foreign_key "nations_squads", "nations"

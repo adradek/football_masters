@@ -5,6 +5,7 @@ class Match < ApplicationRecord
 
   belongs_to :home, class_name: "Nation", optional: true
   belongs_to :away, class_name: "Nation", optional: true
+  belongs_to :promotion_game, class_name: "Match", optional: true
 
   has_many :bonuses
 
@@ -16,6 +17,8 @@ class Match < ApplicationRecord
   }
 
   scope :with_users, -> { includes(home: { squads: :user }, away: { squads: :user }) }
+
+  enum :promotion_side, { not_set: 0, home: 1, away: 2 }
 
   enum :stage, {
     group_round: 0,
