@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_30_113923) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_30_180951) do
   create_table "bonuses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
@@ -42,6 +42,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_30_113923) do
     t.datetime "created_at", null: false
     t.integer "home_id"
     t.datetime "played_at"
+    t.integer "priority", default: 1000, null: false
     t.integer "promotion_game_id"
     t.integer "promotion_side", default: 0, null: false
     t.string "score"

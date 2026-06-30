@@ -60,8 +60,8 @@ class Match < ApplicationRecord
 
   # Текстовая подпись матча для выпадающих списков сборки плей-офф.
   def promotion_label
-    teams = "#{home&.name || "?"} — #{away&.name || "?"}"
-    "##{id} · #{stage.humanize} · #{teams}"
+    teams = "#{home&.name_with_flag || "?"} - #{away&.name_with_flag || "?"}"
+    "(##{id}) #{teams}"
   end
 
   # TODO: move this to a service
