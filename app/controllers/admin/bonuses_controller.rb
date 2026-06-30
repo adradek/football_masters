@@ -63,7 +63,7 @@ module Admin
     def process_match
       authorize [:admin, Bonus], :create?
 
-      result = Bonuses::Cashier.call(match: @match)
+      result = MatchProcessings::Create.call(match: @match)
 
       if result.success?
         redirect_to pending_admin_matches_path, notice: "Бонусы начислены, матч обработан."
