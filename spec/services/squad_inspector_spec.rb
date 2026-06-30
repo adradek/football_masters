@@ -30,7 +30,7 @@ RSpec.describe SquadInspector do
 
       it "stores error and error_message", :aggregate_failures do
         expect(service_call.failure[:error]).to eq(:incorrect_list)
-        expect(service_call.failure[:error_message]).to include(/содержит некорректные команды: Голландия/)
+        expect(service_call.failure[:error_message]).to include(/содержит некорректные команды \(1\): Голландия/)
       end
     end
 

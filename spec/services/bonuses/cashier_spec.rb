@@ -55,12 +55,11 @@ RSpec.describe Bonuses::Cashier do
       end
     end
 
-    context "when persistence fails midway" do
-      before { create(:bonus, match:, nation: away, value: 5) }
+    context "when bonus persistence fails the processing in the midway" do
+      before { create(:bonus, match:, reason: :victory, nation: away, value: 5) }
 
-      it "rolls back everything", :aggregate_failures do
+      it "rolls back everything", :aggregate_failures, :aggregate_failures do
         expect { service_call }.to raise_error(ActiveRecord::RecordInvalid)
-
         expect(Bonus.where(match:, nation: home)).to be_empty
         expect(match.reload.state).to eq("finished")
       end
