@@ -7,6 +7,7 @@
       <%= link_to "Ждут обработки", pending_admin_matches_path, class: "btn btn-outline-warning" %>
       <% if policy([:admin, Match]).create? %>
         <%= link_to "Добавить матч", new_admin_match_path, class: "btn btn-outline-success" %>
+        <%= link_to "Конструктор плей-офф", new_admin_playoff_match_path, class: "btn btn-outline-primary" %>
       <% end %>
     </div>
   </div>

@@ -14,8 +14,9 @@ module Admin
     def create
       @match = Match.new(
         stage: playoff_params[:stage],
-        promotion_side: playoff_params[:promotion_side],
-        played_at: playoff_params[:played_at]
+        played_at: playoff_params[:played_at],
+        priority: playoff_params[:priority],
+        promotion_side: playoff_params[:promotion_side]
       )
       authorize [:admin, @match], :create?
 
@@ -41,7 +42,7 @@ module Admin
 
     def playoff_params
       params.require(:match).permit(
-        :stage, :promotion_side, :played_at, :home_feeder_id, :away_feeder_id
+        :stage, :promotion_side, :played_at, :home_feeder_id, :away_feeder_id, :priority
       )
     end
   end

@@ -39,4 +39,9 @@
     <%= label_tag "match_played_at", "Дата и время", class: "form-label" %>
     <%= datetime_field_tag "match[played_at]", nil, class: "form-control" %>
   </div>
+
+  <div class="col-12 col-md-6">
+    <%= label_tag "match_priority", "Приоритет", class: "form-label" %>
+    <%= number_field_tag "match[priority]", 1000, class: "form-control" %>
+  </div>
 </div>
