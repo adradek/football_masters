@@ -46,7 +46,7 @@ module Admin
 
     def match_params
       params.require(:match).permit(
-        :home_id, :away_id, :played_at, :stage, :state,
+        :home_id, :away_id, :played_at, :stage, :state, :promotion_side,
         :score, :score_extra, :score_penalty
       )
     end

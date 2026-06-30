@@ -45,6 +45,11 @@
       <%= f.label :state, "Состояние", class: "form-label" %>
       <%= f.select :state, Match.states.keys.map { |s| [s.humanize, s] }, {}, class: "form-select" %>
     </div>
+
+    <div class="col-12 col-md-6">
+      <%= f.label :promotion_side, "Сторона прохода", class: "form-label" %>
+      <%= f.select :promotion_side, Match.promotion_sides.keys.map { |s| [s.humanize, s] }, {}, class: "form-select" %>
+    </div>
   </div>
 
   <hr class="my-4">

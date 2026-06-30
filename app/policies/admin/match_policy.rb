@@ -2,8 +2,7 @@ module Admin
   class MatchPolicy < Admin::ApplicationPolicy
     def pending? = read_level
 
-    # Редактировать можно только не доведённый до completed матч.
-    def update? = superadmin? && editable_record?
+    def update? = superadmin? # && editable_record?
 
     private
 

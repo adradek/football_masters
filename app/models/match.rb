@@ -18,7 +18,7 @@ class Match < ApplicationRecord
 
   scope :with_users, -> { includes(home: { squads: :user }, away: { squads: :user }) }
 
-  enum :promotion_side, { not_set: 0, home: 1, away: 2 }
+  enum :promotion_side, { no_side: 0, home_side: 1, away_side: 2 }
 
   enum :stage, {
     group_round: 0,
