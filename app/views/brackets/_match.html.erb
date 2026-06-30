@@ -1,0 +1,32 @@
+<% winner = match&.winner_side %>
+<div class="bracket-match">
+  <div class="bracket-card<%= " bracket-card--tbd" if match.nil? %><%= " bracket-card--live" if match&.live? %>">
+    <% if match.nil? %>
+      <div class="bracket-team bracket-team--empty">
+        <span class="bracket-team-flag">·</span>
+        <span class="bracket-team-name">—</span>
+      </div>
+      <div class="bracket-team bracket-team--empty">
+        <span class="bracket-team-flag">·</span>
+        <span class="bracket-team-name">—</span>
+      </div>
+    <% else %>
+      <% [ [ :home, match.home ], [ :away, match.away ] ].each do |side, nation| %>
+        <div class="bracket-team<%= " bracket-team--winner" if winner == side %><%= " bracket-team--out" if winner && winner != side %>">
+          <span class="bracket-team-flag"><%= nation&.flag_emoji || "·" %></span>
+          <span class="bracket-team-name">
+            <% if nation %>
+              <%= link_to nation.name, nation_path(nation) %>
+            <% else %>
+              <span class="text-muted">—</span>
+            <% end %>
+          </span>
+          <span class="bracket-team-score"><%= bracket_team_goals(match, side) || "" %></span>
+        </div>
+      <% end %>
+      <% if (note = bracket_match_note(match)) %>
+        <div class="bracket-card-note"><%= note %></div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

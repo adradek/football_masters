@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
   resources :nations, only: %i[index show]
   resources :matches, only: %i[index]
+  get "bracket" => "brackets#index", as: :bracket
   resources :rules, only: %i[index]
 
   namespace :admin do

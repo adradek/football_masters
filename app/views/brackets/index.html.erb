@@ -1,0 +1,67 @@
+<% content_for :title, "Сетка плей-офф" %>
+
+<div class="container-fluid py-4" style="margin-top: 4rem;">
+  <div class="section-heading mb-4">
+    <div><h3 class="h3 mb-0 fw-bold">Сетка плей-офф</h3></div>
+  </div>
+
+  <%# ---------- Десктоп / планшет: симметричная сетка ---------- %>
+  <div class="bracket-scroll d-none d-md-block">
+    <div class="bracket">
+      <div class="bracket-half bracket-half--left">
+        <% @bracket_rounds.each do |stage, matches| %>
+          <div class="bracket-round">
+            <div class="bracket-round-head"><%= bracket_round_label(stage, short: true) %></div>
+            <div class="bracket-round-body">
+              <%= render partial: "brackets/match", collection: matches.first(matches.size / 2), as: :match %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="bracket-center">
+        <div class="bracket-final">
+          <div class="bracket-round-head bracket-round-head--final">
+            <i class="bi bi-trophy-fill"></i> Финал
+          </div>
+          <%= render "brackets/match", match: @final %>
+        </div>
+
+        <div class="bracket-third">
+          <div class="bracket-round-head bracket-round-head--third">Матч за 3-е место</div>
+          <%= render "brackets/match", match: @third_place %>
+        </div>
+      </div>
+
+      <div class="bracket-half bracket-half--right">
+        <% @bracket_rounds.reverse_each do |stage, matches| %>
+          <div class="bracket-round">
+            <div class="bracket-round-head"><%= bracket_round_label(stage, short: true) %></div>
+            <div class="bracket-round-body">
+              <%= render partial: "brackets/match", collection: matches.last(matches.size / 2), as: :match %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%# ---------- Мобильные: раунды вертикальным списком ---------- %>
+  <div class="bracket-mobile d-md-none">
+    <% @rounds.each do |stage, matches| %>
+      <section class="bracket-mobile-round">
+        <h4 class="bracket-mobile-title"><%= bracket_round_label(stage) %></h4>
+        <div class="bracket-mobile-list">
+          <%= render partial: "brackets/match", collection: matches, as: :match %>
+        </div>
+      </section>
+    <% end %>
+
+    <section class="bracket-mobile-round">
+      <h4 class="bracket-mobile-title"><%= bracket_round_label("third_place") %></h4>
+      <div class="bracket-mobile-list">
+        <%= render "brackets/match", match: @third_place %>
+      </div>
+    </section>
+  </div>
+</div>

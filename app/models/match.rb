@@ -74,6 +74,26 @@ class Match < ApplicationRecord
     !completed? && played_at < 2.hours.ago
   end
 
+  # Сторона-победитель (:home / :away) с учётом доп. времени и пенальти.
+  # nil, если матч не сыгран или закончился вничью без серии пенальти.
+  def winner_side
+    decisive = [ score_penalty, score_extra, score ].map(&:presence).compact.first
+    return if decisive.blank?
+
+    home_goals, away_goals = decisive.split(/[:\-]/).map { |part| part.strip.to_i }
+    return :home if home_goals > away_goals
+    return :away if away_goals > home_goals
+
+    nil
+  end
+
+  def winner
+    case winner_side
+    when :home then home
+    when :away then away
+    end
+  end
+
   private
 
   def home_and_away_differ
