@@ -35,6 +35,8 @@ Rails.application.routes.draw do
     end
 
     resources :nations, only: %i[index new create edit update]
+
+    resources :visits, only: %i[index]
   end
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_24_093512) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_29_234519) do
   create_table "bonuses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
@@ -98,6 +98,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_24_093512) do
     t.index ["secret"], name: "index_users_on_secret", unique: true
   end
 
+  create_table "visits", force: :cascade do |t|
+    t.string "action"
+    t.string "controller"
+    t.datetime "created_at", null: false
+    t.string "ip"
+    t.integer "user_id"
+    t.index ["created_at"], name: "index_visits_on_created_at"
+    t.index ["user_id"], name: "index_visits_on_user_id"
+  end
+
   add_foreign_key "bonuses", "matches"
   add_foreign_key "bonuses", "nations"
   add_foreign_key "groups_nations", "groups"
@@ -107,4 +117,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_24_093512) do
   add_foreign_key "nations_squads", "nations"
   add_foreign_key "nations_squads", "squads"
   add_foreign_key "squads", "users"
+  add_foreign_key "visits", "users"
 end
