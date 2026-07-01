@@ -1,6 +1,8 @@
 module Admin
   class NationPolicy < Admin::ApplicationPolicy
-    # Наследует правило «только админ» из Admin::ApplicationPolicy.
-    # Переопределяй здесь, если для стран нужны особые правила.
+    private
+
+    def read_level = admin?
+    def invasive_level = admin?
   end
 end

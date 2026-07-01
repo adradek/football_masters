@@ -1,5 +1,8 @@
 module Admin
   class BonusPolicy < Admin::ApplicationPolicy
-    # Начисление бонусов — действие уровня superadmin (наследуется из Admin::ApplicationPolicy#create?).
+    private
+
+    def read_level = admin?
+    def invasive_level = admin?
   end
 end

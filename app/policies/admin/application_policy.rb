@@ -2,15 +2,14 @@ module Admin
   class ApplicationPolicy < ::ApplicationPolicy
     def index?    = read_level
     def show?     = read_level
-    def create?   = superadmin?
-    def update?   = superadmin?
-    def destroy?  = superadmin?
+    def create?   = invasive_level
+    def update?   = invasive_level
+    def destroy?  = invasive_level
 
     private
 
-    def read_level
-      admin?
-    end
+    def read_level = admin?
+    def invasive_level = superadmin?
 
     def admin?
       user.present? && user.admin_access?
