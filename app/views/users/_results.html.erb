@@ -29,7 +29,7 @@
             <% end %>
             <th scope="col" class="text-muted small text-uppercase">Игрок</th>
             <th scope="col" class="text-muted small text-uppercase">Команды</th>
-            <th scope="col" class="text-muted small text-uppercase">Встречи (1/16)</th>
+            <th scope="col" class="text-muted small text-uppercase">Встречи (1/8)</th>
             <th scope="col" class="text-muted small text-uppercase text-end">Очки</th>
           </tr>
         </thead>
@@ -71,7 +71,7 @@
                 <%#= Bonus.where(nation_id: record.nations.map(&:id)).where.not(reason: "promotion").count %>
                 <%= record.round_actual_matches %>
                 из
-                <%= record.round_expected_matches(former_stage: "group_round") %>
+                <%= record.round_expected_matches %>
                 <span class="arrow">→</span>
                 <%= record.promoted_nations_number %>
               </td>

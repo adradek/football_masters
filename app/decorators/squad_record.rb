@@ -41,9 +41,9 @@ class SquadRecord
     end.size
   end
 
-  def round_expected_matches(former_stage:)
+  def round_expected_matches
     nations.select do
-      it.bonuses.any? { |b| b.reason == "promotion" && b.match.stage == former_stage.to_s }
+      it.bonuses.any? { |b| b.reason == "promotion" && b.match.stage == Match::BEFORE_STAGE }
     end.size
   end
 
