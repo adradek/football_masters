@@ -1,8 +1,8 @@
 class Match < ApplicationRecord
   # TODO: move this to a service
   CHAMPIONSHIP_START = Time.zone.local(2026, 6, 11, 22, 0)
-  CURRENT_STAGE = "eight_final".freeze
-  BEFORE_STAGE = "round_of_32".freeze
+  CURRENT_STAGE = "quarter_final".freeze
+  BEFORE_STAGE = "eight_final".freeze
 
   belongs_to :home, class_name: "Nation", optional: true
   belongs_to :away, class_name: "Nation", optional: true
