@@ -16,7 +16,8 @@ class User < ApplicationRecord
   end
 
   def knows_about_shadows?
-    admin_access? || squads.exists?(main: false)
+    # admin_access? || squads.exists?(main: false)
+    true
   end
 
   def initials
