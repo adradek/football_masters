@@ -1,1 +1,1 @@
-NationSeeder.new.call(with_groups: true)
+NationSeeder.new(with_groups: true).call
