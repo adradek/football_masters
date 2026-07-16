@@ -148,4 +148,4 @@ class BruteForceSolution
   end
 end
 
-puts BruteForceSolution.new.search_best_squad
+# puts BruteForceSolution.new.search_best_squad
