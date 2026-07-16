@@ -23,6 +23,10 @@ class SquadRecord
     @place = place
   end
 
+  def percentil
+    @percentil ||= Statistics.call(points)
+  end
+
   def main?
     squad.main?
   end

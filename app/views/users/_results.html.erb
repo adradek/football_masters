@@ -29,7 +29,7 @@
             <% end %>
             <th scope="col" class="text-muted small text-uppercase">Игрок</th>
             <th scope="col" class="text-muted small text-uppercase">Команды</th>
-            <th scope="col" class="text-muted small text-uppercase">Встречи (1/2)</th>
+            <th scope="col" class="text-muted small text-uppercase">Перцентиль 😎</th>
             <th scope="col" class="text-muted small text-uppercase text-end">Очки</th>
           </tr>
         </thead>
@@ -67,13 +67,27 @@
                   <span class="text-muted">Сквад не выбран</span>
                 <% end %>
               </td>
+              <% if nil %>
+                <td>
+                  <%#= Bonus.where(nation_id: record.nations.map(&:id)).where.not(reason: "promotion").count %>
+                  <%= record.round_actual_matches %>
+                  из
+                  <%= record.round_expected_matches %>
+                  <span class="arrow">→</span>
+                  <%= record.promoted_nations_number %>
+                </td>
+              <% end %>
               <td>
-                <%#= Bonus.where(nation_id: record.nations.map(&:id)).where.not(reason: "promotion").count %>
-                <%= record.round_actual_matches %>
-                из
-                <%= record.round_expected_matches %>
-                <span class="arrow">→</span>
-                <%= record.promoted_nations_number %>
+                <% tier = percentil_tier(record.percentil) %>
+                <div title="<%= percentil_title(record.percentil) %>">
+                  <span class="badge text-bg-<%= tier %>">
+                    Топ <%= format_percentil(record.percentil) %>%
+                  </span>
+                  <div class="progress mt-1" style="height: 4px; max-width: 110px;">
+                    <div class="progress-bar bg-<%= tier %>"
+                      style="width: <%= (100 - record.percentil).round(2).clamp(2, 100) %>%"></div>
+                  </div>
+                </div>
               </td>
               <td class="text-end">
                 <span class="fw-semibold"><%= record.points %></span>
