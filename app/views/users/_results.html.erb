@@ -36,7 +36,7 @@
         <tbody>
           <% @results.each do |record| %>
             <tr class="<%= squad_html_class(record) %>">
-              <td><%= record.place %></td>
+              <td><%= record.place - 1%></td>
               <% if user_signed_in? && current_user.money_ball? %>
                 <td title="отдельный конкурс"><%= "💰" if record.user.money_ball? && record.main? %></td>
               <% end %>
