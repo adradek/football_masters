@@ -110,7 +110,7 @@ class BruteForceSolution
       tv = total_value
 
       @super_squads << choice.dup if tv >= 109
-      @statistics[tv] += 1 if total_cost >= 60
+      @statistics[tv] += 1 if total_cost == MAX_COST
 
       if best_result < tv
         self.best_choice = choice.dup
@@ -148,4 +148,4 @@ class BruteForceSolution
   end
 end
 
-# puts BruteForceSolution.new.search_best_squad
+puts BruteForceSolution.new.search_best_squad
