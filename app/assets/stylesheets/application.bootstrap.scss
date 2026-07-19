@@ -196,6 +196,105 @@ tr.admin-left-nation td {
   object-fit: cover;
 }
 
+.celebration-modal .modal-content {
+  background: #fffdf4;
+  box-shadow: 0 1.5rem 5rem rgba(6, 77, 62, 0.3);
+}
+
+.celebration-close {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  padding: 0.65rem;
+  position: absolute;
+  right: 0.8rem;
+  top: 0.8rem;
+  z-index: 2;
+}
+
+.celebration-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+}
+
+.celebration-picture {
+  min-height: 28rem;
+}
+
+.celebration-image {
+  display: block;
+  height: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  width: 100%;
+}
+
+.celebration-copy {
+  align-self: center;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  padding-right: clamp(2.5rem, 6vw, 4rem);
+}
+
+.celebration-trophy {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.celebration-kicker {
+  color: var(--pitch);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.celebration-title {
+  color: var(--pitch-dark);
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+  overflow-wrap: break-word;
+}
+
+.celebration-message {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.celebration-message--accent {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.celebration-open-button {
+  white-space: nowrap;
+}
+
+@media (max-width: 767.98px) {
+  .celebration-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .celebration-picture {
+    min-height: 0;
+  }
+
+  .celebration-image {
+    aspect-ratio: 4 / 3;
+    max-height: 34vh;
+  }
+
+  .celebration-copy {
+    padding: 1.5rem;
+  }
+
+  .celebration-trophy {
+    display: none;
+  }
+}
+
 :root {
   --page-bg: #f5f7fb;
   --ink: #17202a;

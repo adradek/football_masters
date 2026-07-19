@@ -12,3 +12,6 @@ application.register("highlight", HighlightController)
 
 import PlayoffBuilderController from "./playoff_builder_controller"
 application.register("playoff-builder", PlayoffBuilderController)
+
+import CelebrationController from "./celebration_controller"
+application.register("celebration", CelebrationController)

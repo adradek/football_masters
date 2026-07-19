@@ -22,6 +22,49 @@
   </style>
 <% end %>
 
-<div class="container py-4" style="margin-top: 4rem;">
+<div class="container py-4" style="margin-top: 4rem;" data-controller="celebration">
+  <div class="d-flex justify-content-end mb-2">
+    <button type="button" class="btn btn-sm btn-outline-success celebration-open-button"
+      data-action="celebration#open">
+      <span aria-hidden="true">🏆</span>
+      Поздравить чемпиона
+    </button>
+  </div>
+
   <%= render "results" %>
+
+  <div class="modal fade celebration-modal" tabindex="-1"
+    aria-labelledby="celebration-title" aria-describedby="celebration-message"
+    data-celebration-target="modal">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content overflow-hidden border-0">
+        <button type="button" class="btn-close celebration-close" data-bs-dismiss="modal"
+          aria-label="Закрыть"></button>
+
+        <div class="celebration-layout">
+          <div class="celebration-picture">
+            <%= image_tag "congratulations.png",
+              alt: "Поздравление победителю турнира",
+              class: "celebration-image" %>
+          </div>
+
+          <div class="celebration-copy">
+            <div class="celebration-trophy" aria-hidden="true">🏆</div>
+            <p class="celebration-kicker">У нас есть чемпион!</p>
+            <h1 class="celebration-title" id="celebration-title">Браво, Андрей Николаевич!</h1>
+            <p class="celebration-message" id="celebration-message">
+              Поздравляем с убедительнейшей и досрочной (!) победой в фэнтези-турнире! 🎉⚽
+            </p>
+            <p class="celebration-message celebration-message--accent">
+              Отдельно порадуемся тому, что в этот раз аналитика одержала верх над слепой удачей
+              и интуицией. Почет и слава чемпиону! Ура! Ура! 🥳👏
+            </p>
+            <button type="button" class="btn btn-warning fw-bold px-4" data-bs-dismiss="modal">
+              К таблице очков
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
