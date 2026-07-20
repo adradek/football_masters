@@ -19,7 +19,7 @@
         </thead>
         <tbody>
           <% @visits.visitors.each do |visitor| %>
-            <tr class="<%= visitor.user ? "" : "table-light" %>">
+            <tr class="<%= visitor.user ? (visitor.last_day_visits > 0 ? "table-success" : "") : "table-light" %>">
               <td class="<%= visitor.user ? "" : "text-muted" %>">
                 <% if visitor.user %>
                   <%= user_avatar(visitor.user, size: "1.5rem") %>
