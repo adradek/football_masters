@@ -3,7 +3,7 @@
 <div class="container py-4" style="margin-top: 4rem;">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="h4 mb-0">Посещения</h1>
-    <span class="text-muted">Всего: <%= @total %></span>
+    <span class="text-muted">Всего: <%= @visits.total %></span>
   </div>
 
   <div class="card shadow-sm">
@@ -12,28 +12,25 @@
         <thead class="table-light">
           <tr>
             <th scope="col">Юзер</th>
+            <th scope="col">24h</th>
+            <th scope="col">Последнее</th>
             <th scope="col" class="text-end">Посещений</th>
           </tr>
         </thead>
         <tbody>
-          <% @rows.each do |user, count| %>
-            <tr>
-              <td>
-                <% if user %>
-                  <%= user_avatar(user, size: "1.5rem") %>
-                  <%= user.name %>
-                <% else %>
-                  <span class="text-muted">(удалённый юзер)</span>
+          <% @visits.visitors.each do |visitor| %>
+            <tr class="<%= visitor.user ? "" : "table-light" %>">
+              <td class="<%= visitor.user ? "" : "text-muted" %>">
+                <% if visitor.user %>
+                  <%= user_avatar(visitor.user, size: "1.5rem") %>
                 <% end %>
+                <%= visitor.name %>
               </td>
-              <td class="text-end"><%= count %></td>
+              <td><%= visitor.last_day_visits %></td>
+              <td><%= visitor.last_visit&.strftime("%d.%m.%Y %H:%M") %></td>
+              <td class="text-end"><%= visitor.total_visits %></td>
             </tr>
           <% end %>
-
-          <tr class="table-light">
-            <td><span class="text-muted">Гость (без авторизации)</span></td>
-            <td class="text-end"><%= @guest_count %></td>
-          </tr>
         </tbody>
       </table>
     </div>

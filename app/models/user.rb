@@ -3,6 +3,7 @@ class User < ApplicationRecord
   validates :secret, presence: true, uniqueness: true
 
   has_many :squads
+  has_many :visits
   has_one :main_squad, -> { main }, class_name: "Squad"
 
   enum :role, { member: 0, admin: 1, viewer: 2, superadmin: 3 }, default: :member
